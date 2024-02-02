@@ -1,8 +1,14 @@
 import process from 'node:process'
 import Fastify from 'fastify'
 import packageJson from '../package.json'
+import { MeRoute } from './routes/me'
 
 const fastify = Fastify({ logger: true })
+
+const prefix = '/api/v1'
+fastify.register(MeRoute, {
+  prefix: `${prefix}/me`,
+})
 
 fastify.get('/', async (_request, _reply) => {
   return {

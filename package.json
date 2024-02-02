@@ -42,12 +42,15 @@
     "prepublishOnly": "nr build",
     "release": "bumpp && npm publish",
     "start": "esno src/index.ts",
+    "start:dev": "esno watch src/index.ts",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
-    "fastify": "^4.26.0"
+    "consola": "^3.2.3",
+    "fastify": "^4.26.0",
+    "ofetch": "^1.3.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.2",
