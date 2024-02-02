@@ -5,13 +5,32 @@
 
 Unblock all features in Raycast Pro Plan
 
+## Unblock Routes
+
+- [ ] `/me`
+- [ ] `/me/trial_status`
+- [ ] `/me/sync`
+- [ ] `/ai/models`
+- [ ] `/ai/chat_completions`
+- [ ] `/translations`
+
+## Unblock Features
+
+- [ ] Pro Plan Logo
+- [ ] AI Chat
+- [ ] Translation
+- [ ] Cloud Sync
+- [ ] Other Local Features for Pro Plan Users
+
+## Credits
+
+- [zhuozhiyongde/Unlocking-Raycast-With-Surge](https://github.com/zhuozhiyongde/Unlocking-Raycast-With-Surge)
 
 ## Author
 
 raycast-unblock © Wibus, Released under AGPLv3. Created on Feb 2, 2024
 
 > [Personal Website](http://wibus.ren/) · [Blog](https://blog.wibus.ren/) · GitHub [@wibus-wee](https://github.com/wibus-wee/) · Telegram [@wibus✪](https://t.me/wibus_wee)
-
 
 <!-- Badges -->
 
