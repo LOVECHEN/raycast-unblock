@@ -58,14 +58,23 @@ You can download the latest dist from [GitHub Actions](https://github.com/wibus-
 
 The naming format is `raycast-unblock-<platform>`, but in fact they are just built on different platforms, so theoretically you can use any of them on any platform.
 
+### Set environment variables
+
+Copy / Download the `.env.example` file and rename it to `.env`, then fill in the environment variables.
+
+After that, you should put the `.env` file in the same directory as the executable file.
+
 ### Run
 
 ```bash
+# Your .env file should be in this directory
 node index.mjs
 
 # ℹ Raycast Unblock
 # ℹ Version: 0.0.0
 ```
+
+If you want to run it in the background, you can use `pm2` or `nohup`.
 
 ### Set Proxy (Surge)
 
@@ -89,6 +98,17 @@ raycast-activate-backend.raycast.com = type=http-request,pattern=^https://backen
 4. Set your system proxy to Surge.
 5. Run Raycast Unblock.
 6. Enjoy!
+
+### More
+
+You can use `pm2` to manage the process. You can run `npm install -g pm2` to install it.
+
+For example:
+
+```bash
+# Your .env file should be in this directory
+pm2 start index.mjs --name raycast-unblock
+```
 
 ## Credits
 
