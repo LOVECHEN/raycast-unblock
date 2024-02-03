@@ -32,7 +32,7 @@ export function MeRoute(fastify: FastifyInstance, opts: Record<any, any>, done: 
   fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => {
     consola.info('[GET] /me --> Backend Request')
     const backendResponse = await Me(request).catch((reason) => {
-      consola.error('[GET] /me <-- Backend Response Error')
+      consola.error('[GET] /me <-x- Backend Response Error')
       consola.error(reason)
       return reply.send(reason)
     })
@@ -56,7 +56,7 @@ export function MeRoute(fastify: FastifyInstance, opts: Record<any, any>, done: 
   fastify.get('/trial_status', async (request: FastifyRequest, reply: FastifyReply) => {
     consola.info('[GET] /me/trial_status --> Backend Request')
     const backendResponse = await TrialStatus(request).catch((reason) => {
-      consola.error('[GET] /me/trial_status <-- Backend Response Error')
+      consola.error('[GET] /me/trial_status <-x- Backend Response Error')
       consola.error(reason)
       return reply.send(reason)
     })

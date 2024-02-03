@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import { resolve } from 'node:path'
 import type { FastifyRequest } from 'fastify'
 import destr from 'destr'
+import consola from 'consola'
 import { getStore } from '../../utils/store.util'
 import type { User } from '../../types'
 import { getSyncFolder } from './pre'
@@ -72,16 +73,19 @@ export function PutCloudSync(request: FastifyRequest) {
     }
     fs.writeFileSync(filePath, JSON.stringify(body, null, 2))
   }
-
-  const content = destr<any>(fs.readFileSync(filePath, 'utf-8'))
-  let updated = content.updated.filter((item: any) => !bodyDeleted.includes(item.id))
-  for (const item of body.updated) {
-    item.updated_at = updated_at
-    item.created_at = item.client_updated_at
+  else {
+    const content = destr<any>(fs.readFileSync(filePath, 'utf-8'))
+    let updated = content.updated.filter((item: any) => !bodyDeleted.includes(item.id))
+    for (const item of body.updated) {
+      item.updated_at = updated_at
+      item.created_at = item.client_updated_at
+    }
+    updated = updated.concat(body.updated)
+    body.updated = updated
+    fs.writeFileSync(filePath, JSON.stringify(body, null, 2))
   }
-  updated = updated.concat(body.updated)
-  body.updated = updated
-  fs.writeFileSync(filePath, JSON.stringify(body, null, 2))
+
+  consola.success(`[Sync] Synced with ${body.updated.length} items and ${bodyDeleted.length} deleted items. Updated at ${updated_at} - @${user.email}`)
 
   return {
     updated_at,

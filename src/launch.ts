@@ -35,7 +35,7 @@ fastify.get('/*', async (request, reply) => {
     method: 'GET',
     baseURL: 'https://backend.raycast.com', // This is the only difference
   }).catch((reason) => {
-    consola.error(`[GET] ${subUrl} <-- 托底策略 <-- Backend Response Error`)
+    consola.error(`[GET] ${subUrl} <-- 托底策略 <-x- Backend Response Error`)
     consola.error(reason)
     return reply.send(reason)
   })
