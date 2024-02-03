@@ -9,7 +9,7 @@ import { getSyncFolder } from './pre'
 export function GetCloudSync(request: FastifyRequest) {
   const headers = request.headers
   const token = headers.authorization
-  const users = getStore<User[]>('users')
+  const users = getStore<User[]>('users') || []
   const user = users.find(u => u.token === token)
   const failed = {
     updated: [],
@@ -48,7 +48,7 @@ export function PutCloudSync(request: FastifyRequest) {
     }[]
   }
   const token = headers.authorization
-  const users = getStore<User[]>('users')
+  const users = getStore<User[]>('users') || []
   const user = users.find(u => u.token === token)
   const failed = {
     updated: [],

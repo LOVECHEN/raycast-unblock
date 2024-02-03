@@ -37,8 +37,8 @@ export function MeRoute(fastify: FastifyInstance, opts: Record<any, any>, done: 
       return reply.send(reason)
     })
     consola.info('[GET] /me <-- Backend Response')
-    const store = getStore<User[]>('users')
-    const user = store.find(u => u.email === backendResponse.email)
+    const store = getStore<User[]>('users') || []
+    const user = store.find(u => u.email === backendResponse.email) || null
     if (user?.token !== request.headers.authorization) {
       consola.success(`<${backendResponse.email}> is logged in.`)
       setStore('users', [
