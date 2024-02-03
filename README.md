@@ -43,6 +43,53 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 - [x] `/ai/chat_completions`
 - [ ] `/translations`
 
+## Requirements
+
+- Node.js 18.x
+- macOS / Linux (Windows is not maintained)
+- Surge (or other proxy tools)
+- Raycast
+
+## Usage
+
+### Download dist from actions
+
+You can download the latest dist from [GitHub Actions](https://github.com/wibus-wee/raycast-unblock/actions/workflows/ci.yml).
+
+The naming format is `raycast-unblock-<platform>`, but in fact they are just built on different platforms, so theoretically you can use any of them on any platform.
+
+### Run
+
+```bash
+node index.mjs
+
+# ℹ Raycast Unblock
+# ℹ Version: 0.0.0
+```
+
+### Set Proxy (Surge)
+
+1. Download [this script](https://github.com/zhuozhiyongde/Unlocking-Raycast-With-Surge/blob/main/activator.js) and save it as `activator.js`. Put it in the same directory your Surge config file is in.
+2. Get your Surge config file and modify it like this:
+
+```conf
+[MITM]
+skip-server-cert-verify = true
+h2 = true
+hostname = *.raycast.com, <Your Original Proxy Hostname...>
+ca-passphrase = <Your Original CA Passphrase>
+ca-p12 = <Your Original CA P12 Setting>
+
+[Script]
+raycast-activate-backend.raycast.com = type=http-request,pattern=^https://backend.raycast.com,max-size=0,debug=1,script-path=activator.js
+<Your Original Scripts...>
+```
+
+3. Run Surge with the modified config file.
+4. Set your system proxy to Surge.
+5. Run Raycast Unblock.
+6. Enjoy!
+
 ## Credits
 
 - [Raycast](https://raycast.com/)
