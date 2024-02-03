@@ -15,6 +15,7 @@ export async function GeminiChatCompletion(request: FastifyRequest, reply: Fasti
         command_instructions: string
         text: string
         temperature: number
+        [key: string]: string | number
       }
       author: 'user' | 'assistant'
     }[]

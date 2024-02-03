@@ -19,6 +19,7 @@ export async function GeminiChatCompletion(request: FastifyRequest, reply: Fasti
         temperature: number
         [key: string]: string | number
       }
+      author: 'user' | 'assistant'
     }[]
   }
 
@@ -56,7 +57,7 @@ export async function GeminiChatCompletion(request: FastifyRequest, reply: Fasti
     if ('text' in message.content) {
       openai_message.push(
         {
-          role: 'user',
+          role: message.author,
           content: message.content.text,
         },
       )
