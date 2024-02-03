@@ -43,9 +43,13 @@ export async function GeminiChatCompletion(request: FastifyRequest, reply: Fasti
     if ('temperature' in message.content)
       temperature = message.content.temperature
   }
-  let msg = google_message.pop()!.parts
+
+  let msg = google_message.pop()?.parts || ''
   if (!(google_message.length > 0)) { // if there is no message, and it's the first message
-    msg = `${system_message}\n\n${msg}`
+    msg = `${system_message}\n${msg}`
+  }
+  else { // if there is a message, and it's not the first message
+    google_message[0].parts = `${system_message}\n\n${google_message[0].parts}`
   }
   // const result = await model.generateContentStream(system_message)
   const chat = model.startChat({
