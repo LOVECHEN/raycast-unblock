@@ -1,0 +1,26 @@
+diff --git a/lib/sse.js b/lib/sse.js
+index a8240cac3628483c43dce043341febf7e6a9e910..b96d2893ed123e7435bcbfd95561b62790781984 100644
+--- a/lib/sse.js
++++ b/lib/sse.js
+@@ -36,7 +36,7 @@ function transformAsyncIterable(source) {
+             }
+             finally { if (e_1) throw e_1.error; }
+         }
+-        yield yield __await(serializeSSEEvent({ event: "end", data: "Stream closed" }));
++        yield yield __await(serializeSSEEvent({ event: "end" }));
+     });
+ }
+ exports.transformAsyncIterable = transformAsyncIterable;
+diff --git a/src/sse.ts b/src/sse.ts
+index 6866da1355ecf1c6842d2701f3da457a1924b06c..fe6ffc5a46dbd75febadb4bef50619cecea5a9ad 100644
+--- a/src/sse.ts
++++ b/src/sse.ts
+@@ -6,7 +6,7 @@ export async function* transformAsyncIterable(
+   for await (const message of source) {
+     yield serializeSSEEvent(message);
+   }
+-  yield serializeSSEEvent({ event: "end", data: "Stream closed" });
++  yield serializeSSEEvent({ event: "end" });
+ }
+ 
+ export function serializeSSEEvent(chunk: EventMessage): string {
