@@ -26,10 +26,13 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
   - [ ] OpenAI
   - [x] Gemini
 - [ ] Translation
+  - [ ] Shortcut (only for macOS)
+  - [ ] AI
+  - [ ] 3rd Party
 - [x] Cloud Sync
-  - [x] iCloud Drive
+  - [x] iCloud Drive (only for macOS)
   - [x] Local Storage
-- [x] Other Local Features for Pro Plan Users
+- [x] Other Local Features
 
 ## Unblock Routes
 
