@@ -27,7 +27,7 @@ const GEMINI_SERVICE_PROVIDERS = [
     provider: 'google',
     provider_name: 'Google',
     requires_better_ai: true,
-    features: [],
+    features: ['chat', 'quick_ai', 'commands', 'api'],
   },
 ]
 
