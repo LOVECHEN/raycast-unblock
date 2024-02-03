@@ -1,0 +1,53 @@
+import process from 'node:process'
+import Fastify from 'fastify'
+import consola from 'consola'
+import packageJson from '../package.json'
+import { MeRoute } from './routes/me'
+import { httpClient } from './utils'
+
+const fastify = Fastify({ logger: false })
+
+const prefix = '/api/v1'
+
+fastify.register(MeRoute, { prefix: `${prefix}/me` })
+
+fastify.get('/', async (_request, _reply) => {
+  return {
+    name: packageJson.name,
+    version: packageJson.version,
+    author: packageJson.author,
+  }
+})
+
+fastify.get('/*', async (request, reply) => {
+  const subUrl = request.url.substr(0, 30)
+  consola.info(`[GET] ${subUrl} <-- 托底策略 --> Backend Request`)
+  request.headers = {
+    ...request.headers,
+    host: 'backend.raycast.com',
+  }
+  const backendResponse = await httpClient(`/${(request.params as any)['*']}`, {
+    headers: request.headers as Record<string, string>,
+    method: 'GET',
+    baseURL: 'https://backend.raycast.com', // This is the only difference
+  }).catch((reason) => {
+    consola.error(`[GET] ${subUrl} <-- 托底策略 <-- Backend Response Error`)
+    consola.error(reason)
+    return reply.send(reason)
+  })
+  consola.info(`[GET] ${subUrl} <-- 托底策略 <-- Backend Response`)
+  return reply.send(backendResponse)
+})
+
+export function launch() {
+  consola.info(`Raycast Unblock`)
+  consola.info(`Version: ${packageJson.version}`)
+  consola.info('Proxy Server starting...')
+  fastify.listen({ port: 3000 }, (err, address) => {
+    if (err) {
+      consola.error(err)
+      process.exit(1)
+    }
+    consola.success(`Proxy Server listening on ${address}. Fallback policy is activated.`)
+  })
+}

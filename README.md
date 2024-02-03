@@ -20,7 +20,7 @@ Unblock all features in Raycast Pro Plan
 - [ ] AI Chat
 - [ ] Translation
 - [ ] Cloud Sync
-- [ ] Other Local Features for Pro Plan Users
+- [x] Other Local Features for Pro Plan Users
 
 ## Credits
 

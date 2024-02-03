@@ -1,6 +1,8 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import consola from 'consola'
 import { getBackendResponse } from '../../utils'
+import { getStore, setStore } from '../../utils/store.util'
+import type { User } from '../../types'
 import { TrialStatus } from './trialStatus'
 
 export async function Me(request: FastifyRequest) {
@@ -34,6 +36,14 @@ export function MeRoute(fastify: FastifyInstance, opts: Record<any, any>, done: 
       return reply.send(reason)
     })
     consola.info('[GET] /me <-- Backend Response')
+    consola.success(`<${backendResponse.email}> is logged in.`)
+    setStore('users', [
+      ...getStore<User[]>('users'),
+      {
+        email: backendResponse.email,
+        token: request.headers.authorization,
+      },
+    ])
     return reply.send(backendResponse)
   })
 
@@ -45,22 +55,6 @@ export function MeRoute(fastify: FastifyInstance, opts: Record<any, any>, done: 
       return reply.send(reason)
     })
     consola.info('[GET] /me/trial_status <-- Backend Response')
-    return reply.send(backendResponse)
-  })
-
-  fastify.get('/*', async (request: FastifyRequest, reply: FastifyReply) => {
-    consola.info('[GET] /me/* --> 激活托底策略')
-    request.headers = {
-      ...request.headers,
-      host: 'backend.raycast.com',
-    }
-    consola.info('[GET] /me/* --> 激活托底策略 --> Backend Request')
-    const backendResponse = await getBackendResponse(`/${(request.params as any)['*']}`, request.headers, 'GET').catch((reason) => {
-      consola.error(`[GET] /me/* <-- 托底策略 <-- Backend Response Error`)
-      consola.error(reason)
-      return reply.send(reason)
-    })
-    consola.info('[GET] /me/* <-- 托底策略 <-- Backend Response')
     return reply.send(backendResponse)
   })
 

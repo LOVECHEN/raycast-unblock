@@ -1,4 +1,4 @@
-import type { FastifyReply, FastifyRequest } from 'fastify'
+import type { FastifyRequest } from 'fastify'
 import consola from 'consola'
 import { getBackendResponse } from '../../utils'
 
