@@ -110,6 +110,17 @@ For example:
 pm2 start index.mjs --name raycast-unblock
 ```
 
+### If you don't have Surge
+
+You need to throw all Raycast requests to the backend built by this project, but make sure that the backend can request Raycast Backend normally, because some functions need to request Raycast Backend once and then do it.
+
+> [!NOTE]
+> If you are building the backend locally, please do not let your proxy tool proxy both Raycast's requests and the backend service's requests, as this will cause it to not work properly.
+>
+> Raycast Unblock adds an `x-raycast-unblock` header to requests to Raycast Backend. You can determine whether this is a request from Raycast or Raycast Unblock by the presence of this header, and make the backend service work properly through conditional judgment. ( Raycast Unblock has turned off SSL check by default )
+
+[Related Code](https://github.com/wibus-wee/activation-script/blob/main/src/modules/index.ts#L70-L89)
+
 ## Credits
 
 - [Raycast](https://raycast.com/)

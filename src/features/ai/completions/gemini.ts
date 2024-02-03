@@ -60,6 +60,14 @@ export async function GeminiChatCompletion(request: FastifyRequest, reply: Fasti
         category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
         threshold: HarmBlockThreshold.BLOCK_NONE,
       },
+      {
+        category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+        threshold: HarmBlockThreshold.BLOCK_NONE,
+      },
+      {
+        category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+        threshold: HarmBlockThreshold.BLOCK_NONE,
+      },
     ],
   })
   const result = await chat.sendMessageStream(msg)
