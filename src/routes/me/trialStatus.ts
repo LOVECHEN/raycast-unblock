@@ -11,4 +11,6 @@ export async function TrialStatus(request: FastifyRequest) {
     quicklinks_limit: 999,
     snippets_limit: 999,
   }
+
+  return response
 }

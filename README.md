@@ -9,7 +9,7 @@ Unblock all features in Raycast Pro Plan
 
 - [x] `/me`
 - [x] `/me/trial_status`
-- [ ] `/me/sync`
+- [x] `/me/sync`
 - [ ] `/ai/models`
 - [ ] `/ai/chat_completions`
 - [ ] `/translations`
@@ -19,7 +19,7 @@ Unblock all features in Raycast Pro Plan
 - [x] Pro Plan Logo
 - [ ] AI Chat
 - [ ] Translation
-- [ ] Cloud Sync
+- [x] Cloud Sync
 - [x] Other Local Features for Pro Plan Users
 
 ## Credits
