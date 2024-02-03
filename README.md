@@ -3,7 +3,17 @@
 [![Version][package-version-src]][package-version-href]
 [![License][license-src]][license-href]
 
-Unblock all features in Raycast Pro Plan
+Unblock all features in Raycast Pro Plan.
+
+> [!WARNING]
+> This project is for educational purposes only.
+> Please do not use it for commercial purposes.
+>
+> We only borrowed the operation interface of Raycast,
+> and did not modify the backend server of Raycast.
+>
+> We just coded a proxy server to forward Raycast's requests to our proxy server,
+> and implemented similar functions in Raycast Pro Plan in other ways.
 
 ## Unblock Routes
 
@@ -26,7 +36,9 @@ Unblock all features in Raycast Pro Plan
 
 ## Credits
 
+- [Raycast](https://raycast.com/)
 - [zhuozhiyongde/Unlocking-Raycast-With-Surge](https://github.com/zhuozhiyongde/Unlocking-Raycast-With-Surge)
+- [yufeikang/raycast_api_proxy](https://github.com/yufeikang/raycast_api_proxy)
 
 ## Author
 
