@@ -23,7 +23,7 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 
 - [x] Pro Plan Logo
 - [x] AI Chat
-  - [ ] OpenAI
+  - [ ] OpenAI `I don't have the OpenAI API usage quota, so I can't test it.`
   - [x] Gemini
 - [ ] Translation
   - [ ] Shortcut (only for macOS)

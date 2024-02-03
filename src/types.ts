@@ -10,3 +10,18 @@ export interface AIConfig {
   max_tokens?: string
   temperature: string
 }
+
+export interface TranslateFrom {
+  q: string
+  target: string
+  format: 'text'
+}
+
+export interface TranslateTo {
+  data: {
+    translations: {
+      translatedText: string
+      detectedSourceLanguage?: string
+    }[]
+  }
+}
