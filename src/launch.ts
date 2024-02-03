@@ -4,12 +4,14 @@ import consola from 'consola'
 import packageJson from '../package.json'
 import { MeRoute } from './routes/me'
 import { httpClient } from './utils'
+import { AIRoute } from './routes/ai'
 
 const fastify = Fastify({ logger: false })
 
 const prefix = '/api/v1'
 
 fastify.register(MeRoute, { prefix: `${prefix}/me` })
+fastify.register(AIRoute, { prefix: `${prefix}/ai` })
 
 fastify.get('/', async (_request, _reply) => {
   return {
