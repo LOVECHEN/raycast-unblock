@@ -3,7 +3,7 @@ import type { FastifyReply, FastifyRequest } from 'fastify'
 import { getAIConfig } from '../../../utils/env.util'
 
 const openai = new OpenAI({
-  baseURL: getAIConfig().endpoint,
+  baseURL: getAIConfig().type === 'custom' ? getAIConfig().endpoint : undefined,
   apiKey: getAIConfig().key,
 })
 
