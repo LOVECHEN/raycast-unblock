@@ -8,21 +8,16 @@ Unblock all features in Raycast Pro Plan.
 > [!WARNING]
 > This project is for educational purposes only.
 > Please do not use it for commercial purposes.
->
-> We only borrowed the operation interface of Raycast,
-> and did not modify the backend server of Raycast.
->
-> We just coded a proxy server to forward Raycast's requests to our proxy server,
-> and implemented similar functions in Raycast Pro Plan in other ways.
 
-## Unblock Routes
+## Implementation Principle
 
-- [x] `/me`
-- [x] `/me/trial_status`
-- [x] `/me/sync`
-- [x] `/ai/models`
-- [x] `/ai/chat_completions`
-- [ ] `/translations`
+We only borrowed the **operation interface** of Raycast, and **did not modify the backend server** of Raycast.
+
+We just coded a proxy server to forward Raycast's requests to our proxy server, and **implemented similar functions** in Raycast Pro Plan **in other ways**.
+
+You can see all the code in the `src` directory. If you have any questions, please feel free to ask.
+
+See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) for more details.
 
 ## Unblock Features
 
@@ -32,7 +27,18 @@ Unblock all features in Raycast Pro Plan.
   - [x] Gemini
 - [ ] Translation
 - [x] Cloud Sync
+  - [x] iCloud Drive
+  - [x] Local Storage
 - [x] Other Local Features for Pro Plan Users
+
+## Unblock Routes
+
+- [x] `/me`
+- [x] `/me/trial_status`
+- [x] `/me/sync`
+- [x] `/ai/models`
+- [x] `/ai/chat_completions`
+- [ ] `/translations`
 
 ## Credits
 
