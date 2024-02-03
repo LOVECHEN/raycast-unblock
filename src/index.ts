@@ -31,13 +31,13 @@ fastify.get('/*', async (request, reply) => {
   const backendResponse = await httpClient(`/${(request.params as any)['*']}`, {
     headers: request.headers as Record<string, string>,
     method: 'GET',
-    baseURL: 'https://backend.raycast.com',
+    baseURL: 'https://backend.raycast.com', // This is the only difference
   }).catch((reason) => {
-    consola.error(`[GET] ${request.url} <-- Backend Response Error`)
+    consola.error(`[GET] ${request.url} <-- 托底策略 <-- Backend Response Error`)
     consola.error(reason)
     return reply.send(reason)
   })
-  consola.info(`[GET] ${request.url} <-- Backend Response`)
+  consola.info(`[GET] ${request.url} <-- 托底策略 <-- Backend Response`)
   return reply.send(backendResponse)
 })
 

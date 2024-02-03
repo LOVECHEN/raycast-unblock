@@ -7,8 +7,8 @@ Unblock all features in Raycast Pro Plan
 
 ## Unblock Routes
 
-- [ ] `/me`
-- [ ] `/me/trial_status`
+- [x] `/me`
+- [x] `/me/trial_status`
 - [ ] `/me/sync`
 - [ ] `/ai/models`
 - [ ] `/ai/chat_completions`
@@ -16,7 +16,7 @@ Unblock all features in Raycast Pro Plan
 
 ## Unblock Features
 
-- [ ] Pro Plan Logo
+- [x] Pro Plan Logo
 - [ ] AI Chat
 - [ ] Translation
 - [ ] Cloud Sync
