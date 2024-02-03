@@ -1,18 +1,23 @@
+import type { $Fetch } from 'ofetch'
 import { ofetch } from 'ofetch'
 
-export const httpClient = ofetch.create({
-  baseURL: 'https://backend.raycast.com',
+export const httpClient: $Fetch = ofetch.create({
+  baseURL: 'https://backend.raycast.com/api/v1',
 })
 
-export function getBackendResponse(
+export async function getBackendResponse(
   url: string,
   headers = {},
   method?: string,
   data?: any,
 ) {
-  return httpClient(url, {
+  headers = {
+    ...headers,
+    host: 'backend.raycast.com',
+  }
+  return await httpClient(url, {
     headers,
     method: method || 'GET',
-    body: data,
+    body: data ? JSON.stringify(data) : undefined,
   })
 }

@@ -1,9 +1,13 @@
 import process from 'node:process'
 import Fastify from 'fastify'
+import consola from 'consola'
 import packageJson from '../package.json'
 import { MeRoute } from './routes/me'
+import { httpClient } from './utils'
 
-const fastify = Fastify({ logger: true })
+process.title = packageJson.name
+
+const fastify = Fastify({ logger: false })
 
 const prefix = '/api/v1'
 fastify.register(MeRoute, {
@@ -18,10 +22,30 @@ fastify.get('/', async (_request, _reply) => {
   }
 })
 
+fastify.get('/*', async (request, reply) => {
+  consola.info(`[GET] ${request.url} --> 激活托底策略`)
+  request.headers = {
+    ...request.headers,
+    host: 'backend.raycast.com',
+  }
+  const backendResponse = await httpClient(`/${(request.params as any)['*']}`, {
+    headers: request.headers as Record<string, string>,
+    method: 'GET',
+    baseURL: 'https://backend.raycast.com',
+  }).catch((reason) => {
+    consola.error(`[GET] ${request.url} <-- Backend Response Error`)
+    consola.error(reason)
+    return reply.send(reason)
+  })
+  consola.info(`[GET] ${request.url} <-- Backend Response`)
+  return reply.send(backendResponse)
+})
+
+consola.info('Server starting...')
 fastify.listen({ port: 3000 }, (err, address) => {
   if (err) {
-    fastify.log.error(err)
+    consola.error(err)
     process.exit(1)
   }
-  fastify.log.info(`Server listening on ${address}`)
+  consola.info(`Server listening on ${address}`)
 })
