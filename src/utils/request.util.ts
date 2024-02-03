@@ -1,5 +1,9 @@
+import process from 'node:process'
 import type { $Fetch } from 'ofetch'
 import { ofetch } from 'ofetch'
+
+// Disable SSL verification. (Local Server)
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
 export const httpClient: $Fetch = ofetch.create({
   baseURL: 'https://backend.raycast.com/api/v1',
