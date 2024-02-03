@@ -16,35 +16,46 @@ export async function GeminiChatCompletion(request: FastifyRequest, reply: Fasti
         text: string
         temperature: number
       }
+      author: 'user' | 'assistant'
     }[]
   }
-  let google_message = ''
+  let system_message = ''
+  const google_message = []
   let temperature = Number(getAIConfig().temperature)
   const messages = body.messages
   for (const message of messages) {
     if ('system_instructions' in message.content)
-      google_message += `${message.content.system_instructions}\n`
+      system_message += `${message.content.system_instructions}\n`
 
     if ('command_instructions' in message.content)
-      google_message += `${message.content.command_instructions}\n`
+      system_message += `${message.content.command_instructions}\n`
 
     if ('additional_system_instructions' in body)
-      google_message += `${body.additional_system_instructions}\n`
+      system_message += `${body.additional_system_instructions}\n`
 
-    if ('text' in message.content)
-      google_message += `${message.content.text}\n`
-
+    if ('text' in message.content) {
+      google_message.push({
+        role: message.author === 'user' ? 'user' : 'model',
+        parts: message.content.text,
+      })
+    }
     if ('temperature' in message.content)
       temperature = message.content.temperature
   }
-
-  model.generationConfig = {
-    ...model.generationConfig,
-    temperature,
-    maxOutputTokens: getAIConfig().max_tokens ? Number(getAIConfig().max_tokens) : undefined,
-    candidateCount: 1,
+  let msg = google_message.pop()!.parts
+  if (!(google_message.length > 0)) { // if there is no message, and it's the first message
+    msg = `${system_message}\n\n${msg}`
   }
-  const result = await model.generateContentStream(google_message)
+  // const result = await model.generateContentStream(system_message)
+  const chat = model.startChat({
+    history: google_message,
+    generationConfig: {
+      temperature,
+      maxOutputTokens: getAIConfig().max_tokens ? Number(getAIConfig().max_tokens) : undefined,
+      candidateCount: 1,
+    },
+  })
+  const result = await chat.sendMessageStream(msg)
   return reply.sse((async function * source() {
     try {
       for await (const data of result.stream) {
