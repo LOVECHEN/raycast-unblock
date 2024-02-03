@@ -1,12 +1,14 @@
 import process from 'node:process'
 import Fastify from 'fastify'
 import consola from 'consola'
+import { FastifySSEPlugin } from 'fastify-sse-v2'
 import packageJson from '../package.json'
 import { MeRoute } from './routes/me'
 import { httpClient } from './utils'
 import { AIRoute } from './routes/ai'
 
 const fastify = Fastify({ logger: false })
+fastify.register(FastifySSEPlugin)
 
 const prefix = '/api/v1'
 

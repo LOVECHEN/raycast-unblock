@@ -3,6 +3,9 @@ import { ofetch } from 'ofetch'
 
 export const httpClient: $Fetch = ofetch.create({
   baseURL: 'https://backend.raycast.com/api/v1',
+  headers: {
+    'x-raycast-unblock': 'true',
+  },
 })
 
 export async function getBackendResponse(
