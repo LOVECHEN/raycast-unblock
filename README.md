@@ -172,7 +172,7 @@ You can use AI to translate text in Raycast Translate feature. Prompts provided 
 
 ## Author
 
-raycast-unblock © Wibus, Released under AGPLv3. Created on Feb 2, 2024
+raycast-unblock © Wibus, Released under MIT. Created on Feb 2, 2024
 
 > [Personal Website](http://wibus.ren/) · [Blog](https://blog.wibus.ren/) · GitHub [@wibus-wee](https://github.com/wibus-wee/) · Telegram [@wibus✪](https://t.me/wibus_wee)
 
