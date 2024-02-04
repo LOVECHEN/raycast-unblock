@@ -1,9 +1,8 @@
-import { exec, execSync, spawn } from 'node:child_process'
+import { execSync } from 'node:child_process'
 import fs from 'node:fs'
 import { resolve } from 'node:path'
 import consola from 'consola'
-import { TMP, TRANSLATE_SHORTCUT } from '../constants'
-import { TRANSLATE_DICT } from '../features/translations/dict'
+import { TMP } from '../constants'
 import { execCommand } from './exec.util'
 
 export function listShortcuts() {
