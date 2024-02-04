@@ -3,9 +3,9 @@
 [![Version][package-version-src]][package-version-href]
 [![License][license-src]][license-href]
 
-Unblock all features in Raycast Pro Plan.
+> This project is inspired by [zhuozhiyongde/Unblocking-Raycast-With-Surge](https://github.com/zhuozhiyongde/Unlocking-Raycast-With-Surge), thanks for his work.
 
-> Thanks to [zhuozhiyongde/Unblocking-Raycast-With-Surge](https://github.com/zhuozhiyongde/Unlocking-Raycast-With-Surge)
+Unblock all features in Raycast Pro Plan.
 
 > [!WARNING]
 > This project is for educational purposes only.
@@ -25,12 +25,12 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 
 - [x] Pro Plan Logo
 - [x] AI Chat
-  - [x] OpenAI `I don't have the OpenAI API usage quota, so I can't test it.`
+  - [x] OpenAI `🧪 Alpha` <sup>(I don't have the OpenAI API usage quota, so I can't test it.)</sup>
   - [x] Gemini
 - [ ] Translation
-  - [x] Shortcut (only for macOS) `Alpha` - [Usage](#shortcut-translator)
+  - [x] Shortcut (only for macOS) `🧪 Alpha` - [Usage](#shortcut-translator)
   - [ ] AI
-  - [ ] 3rd Party
+  - [ ] 3rd Party `🤔 Help Wanted`
 - [x] Cloud Sync
   - [x] iCloud Drive (only for macOS)
   - [x] Local Storage
@@ -43,7 +43,7 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 - [x] `/me/sync`
 - [x] `/ai/models`
 - [x] `/ai/chat_completions`
-- [ ] `/translations`
+- [x] `/translations`
 
 ## Requirements
 
