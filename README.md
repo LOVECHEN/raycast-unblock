@@ -80,8 +80,8 @@ If you want to run it in the background, you can use `pm2` or `nohup`.
 
 ### Set Proxy (Surge)
 
-1. Download [this script](https://github.com/zhuozhiyongde/Unlocking-Raycast-With-Surge/blob/main/activator.js) and save it as `activator.js`. Put it in the same directory your Surge config file is in.
-2. Get your Surge config file and modify it like this:
+1. Go to [wibus-wee/activation-script](https://github.com/wibus-wee/activation-script) and follow the instructions to get the activation script.
+2. Get your Surge config file and modify it like this: (Normally, `wibus-wee/activation-script` will help you modify this config file)
 
 ```conf
 [MITM]
@@ -101,16 +101,8 @@ raycast-activate-backend.raycast.com = type=http-request,pattern=^https://backen
 5. Run Raycast Unblock.
 6. Enjoy!
 
-### More
-
-You can use `pm2` to manage the process. You can run `npm install -g pm2` to install it.
-
-For example:
-
-```bash
-# Your .env file should be in this directory
-pm2 start index.mjs --name raycast-unblock
-```
+> [!WARNING]
+> In some cases, if you find that Raycast Unblock is not working properly, please go to the settings of Surge, and uncheck the last line `*` in `Surge -> HTTP -> Capture(捕获) -> Capture MITM Overrides(捕获 MITM 覆写)`, which is `Modify MITM Hostname`.
 
 ### If you don't have Surge
 
@@ -122,6 +114,17 @@ You need to throw all Raycast requests to the backend built by this project, but
 > Raycast Unblock adds an `x-raycast-unblock` header to requests to Raycast Backend. You can determine whether this is a request from Raycast or Raycast Unblock by the presence of this header, and make the backend service work properly through conditional judgment. ( Raycast Unblock has turned off SSL check by default )
 
 [Related Code](https://github.com/wibus-wee/activation-script/blob/main/src/modules/index.ts#L70-L89)
+
+### More
+
+You can use `pm2` to manage the process. You can run `npm install -g pm2` to install it.
+
+For example:
+
+```bash
+# Your .env file should be in this directory
+pm2 start index.mjs --name raycast-unblock
+```
 
 ## Credits
 
