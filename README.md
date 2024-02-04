@@ -78,7 +78,7 @@ node index.mjs
 
 If you want to run it in the background, you can use `pm2` or `nohup`.
 
-### Set Proxy (Surge)
+### Use it with Surge
 
 1. Go to [wibus-wee/activation-script](https://github.com/wibus-wee/activation-script) and follow the instructions to get the activation script.
 2. Get your Surge config file and modify it like this: (Normally, `wibus-wee/activation-script` will help you modify this config file)
@@ -112,10 +112,22 @@ You need to throw all Raycast requests to the backend built by this project, but
 > If you are building the backend locally, please do not let your proxy tool proxy both Raycast's requests and the backend service's requests, as this will cause it to not work properly.
 >
 > Raycast Unblock adds an `x-raycast-unblock` header to requests to Raycast Backend. You can determine whether this is a request from Raycast or Raycast Unblock by the presence of this header, and make the backend service work properly through conditional judgment. ( Raycast Unblock has turned off SSL check by default )
+>
+> Or you can deploy the backend to a remote server, and this will not be a problem.
 
 [Related Code](https://github.com/wibus-wee/activation-script/blob/main/src/modules/index.ts#L70-L89)
 
 ### More
+
+#### Deploy to remote server
+
+Raycast Unblock can be deployed to a remote server, and then you can use it as a proxy server. But you need to modify the code in `activator.js` to make it work properly.
+
+You should replace `http://127.0.0.1:3000` with your remote server address.
+
+[Related Source Code](https://github.com/wibus-wee/activation-script/blob/main/src/modules/index.ts#L83C14-L83C35)
+
+#### Use `pm2`
 
 You can use `pm2` to manage the process. You can run `npm install -g pm2` to install it.
 
