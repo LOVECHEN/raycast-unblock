@@ -6,6 +6,7 @@ import packageJson from '../package.json'
 import { MeRoute } from './routes/me'
 import { httpClient } from './utils'
 import { AIRoute } from './routes/ai'
+import { TranslationsRoute } from './routes/translations'
 
 const fastify = Fastify({ logger: false })
 fastify.register(FastifySSEPlugin)
@@ -14,6 +15,7 @@ const prefix = '/api/v1'
 
 fastify.register(MeRoute, { prefix: `${prefix}/me` })
 fastify.register(AIRoute, { prefix: `${prefix}/ai` })
+fastify.register(TranslationsRoute, { prefix: `${prefix}/translations` })
 
 fastify.get('/', async (_request, _reply) => {
   return {

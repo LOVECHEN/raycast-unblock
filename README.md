@@ -28,7 +28,7 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
   - [x] OpenAI `I don't have the OpenAI API usage quota, so I can't test it.`
   - [x] Gemini
 - [ ] Translation
-  - [ ] Shortcut (only for macOS)
+  - [x] Shortcut (only for macOS) `Alpha` - [Usage](#shortcut-translator)
   - [ ] AI
   - [ ] 3rd Party
 - [x] Cloud Sync
@@ -137,6 +137,18 @@ For example:
 # Your .env file should be in this directory
 pm2 start index.mjs --name raycast-unblock
 ```
+
+## Features
+
+### Shortcut Translator
+
+Raycast Unblock provides a shortcut translator, which is only available on macOS. You can use it to translate text in Raycast Translate feature.
+
+#### Usage
+
+1. Open [iCloud Shortcut - RaycastUnblock.Translate.v1](https://www.icloud.com/shortcuts/4a907702fe3145d9a378a9c8af47bb2e) and add it to your shortcuts.
+2. Modify your `.env` file and set `TRANSLATE_TYPE` to `shortcut`.
+3. Run Raycast Unblock and use Raycast Translate feature.
 
 ## Credits
 

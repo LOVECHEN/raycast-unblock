@@ -12,6 +12,7 @@ export interface AIConfig {
 }
 
 export interface TranslateFrom {
+  source: string
   q: string
   target: string
   format: 'text'
@@ -25,3 +26,5 @@ export interface TranslateTo {
     }[]
   }
 }
+
+export type TranslateShortcutBody = Pick<TranslateFrom, 'source' | 'target' | 'q'>
