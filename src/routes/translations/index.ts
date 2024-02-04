@@ -2,6 +2,7 @@ import process from 'node:process'
 import consola from 'consola'
 import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import { TranslateWithShortcut } from '../../features/translations/shortcuts'
+import { TranslateWithAI } from '../../features/translations/ai'
 
 export function TranslationsRoute(fastify: FastifyInstance, opts: Record<any, any>, done: Function) {
   fastify.post('/', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -11,8 +12,11 @@ export function TranslationsRoute(fastify: FastifyInstance, opts: Record<any, an
       case 'shortcut':
         res = await TranslateWithShortcut(request)
         break
+      case 'ai':
+        res = await TranslateWithAI(request)
+        break
       default:
-        res = { error: 'Invalid translate type' }
+        res = await TranslateWithAI(request)
         break
     }
     consola.info('[GET] /translations <-- Local Handler')

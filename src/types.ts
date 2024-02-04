@@ -28,3 +28,6 @@ export interface TranslateTo {
 }
 
 export type TranslateShortcutBody = Pick<TranslateFrom, 'source' | 'target' | 'q'>
+export interface AIGenerateContent {
+  content: string
+}

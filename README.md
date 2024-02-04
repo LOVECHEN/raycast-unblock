@@ -27,9 +27,9 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 - [x] AI Chat
   - [x] OpenAI `🧪 Alpha` <sup>(I don't have the OpenAI API usage quota, so I can't test it.)</sup>
   - [x] Gemini
-- [ ] Translation
+- [x] Translation
   - [x] Shortcut (only for macOS) `🧪 Alpha` - [Usage](#shortcut-translator)
-  - [ ] AI
+  - [x] AI - [Notice](#ai-translator)
   - [ ] 3rd Party `🤔 Help Wanted`
 - [x] Cloud Sync
   - [x] iCloud Drive (only for macOS)
@@ -149,6 +149,20 @@ Raycast Unblock provides a shortcut translator, which is only available on macOS
 1. Open [iCloud Shortcut - RaycastUnblock.Translate.v1](https://www.icloud.com/shortcuts/4a907702fe3145d9a378a9c8af47bb2e) and add it to your shortcuts.
 2. Modify your `.env` file and set `TRANSLATE_TYPE` to `shortcut`.
 3. Run Raycast Unblock and use Raycast Translate feature.
+
+#### Notice
+
+- This feature is only available on macOS.
+- Some languages may not be recognized, this is because the system's built-in translation engine is used, which may be due to incorrect [dictionary settings](./src/features/translations/dict.ts) or encountering languages not supported by the system.
+- If you are sure that it is a problem with the dictionary settings, you can submit an Issue or Pull Request to help us fix this problem.
+
+### AI Translator
+
+You can use AI to translate text in Raycast Translate feature. Prompts provided by `@zhuozhiyongde`.
+
+#### Notice
+
+- Pay attention to the request and usage issues, Translator may cause frequent requests to AI services, resulting in overuse or rate limit, so please use it carefully.
 
 ## Credits
 

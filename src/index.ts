@@ -29,3 +29,4 @@ prepareSync()
 prepareShortcutRunner()
 
 checkAIConfig()
+consola.info('Translate Type:', process.env.TRANSLATE_TYPE)

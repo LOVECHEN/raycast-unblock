@@ -8,7 +8,7 @@ declare global {
       AI_ENDPOINT: string
       AI_MAX_TOKENS: string
       AI_TEMPERATURE: string
-      TRANSLATE_TYPE: 'shortcut'
+      TRANSLATE_TYPE: 'shortcut' | 'ai'
     }
   }
 }
