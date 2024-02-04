@@ -5,6 +5,8 @@
 
 Unblock all features in Raycast Pro Plan.
 
+> Thanks to [zhuozhiyongde/Unblocking-Raycast-With-Surge](https://github.com/zhuozhiyongde/Unlocking-Raycast-With-Surge)
+
 > [!WARNING]
 > This project is for educational purposes only.
 > Please do not use it for commercial purposes.
