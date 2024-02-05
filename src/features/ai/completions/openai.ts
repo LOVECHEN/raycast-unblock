@@ -7,7 +7,7 @@ const openai = new OpenAI({
   apiKey: getAIConfig().key,
 })
 
-export async function GeminiChatCompletion(request: FastifyRequest, reply: FastifyReply) {
+export async function OpenAIChatCompletion(request: FastifyRequest, reply: FastifyReply) {
   const body = request.body as {
     additional_system_instructions: string
     temperature: number
