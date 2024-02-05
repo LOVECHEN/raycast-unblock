@@ -33,8 +33,14 @@ export async function OpenaiGenerateContent(prompt: {
     max_tokens: getAIConfig().max_tokens ? Number(getAIConfig().max_tokens) : undefined,
     model: 'gpt-3.5-turbo',
   })
-  const text = result.choices[0].message.content
+
+  const text = result.choices[0].message.content!
+  const split = text.split('\n')
+  const detectedSourceLanguage = split[0]
+  const translatedText = split[1]
+
   return {
-    content: text as string,
+    content: translatedText,
+    detectedSourceLanguage,
   }
 }
