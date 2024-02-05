@@ -31,9 +31,22 @@ const GEMINI_SERVICE_PROVIDERS = [
   },
 ]
 
+const GITHUB_COPILOT_SERVICE_PROVIDERS = [
+  {
+    id: 'github-copilot',
+    model: 'github-copilot',
+    name: 'GitHub Copilot',
+    provider: 'microsoft',
+    provider_name: 'Microsoft',
+    requires_better_ai: true,
+    features: ['chat', 'quick_ai', 'commands', 'api'],
+  },
+]
+
 export const RAYCAST_AI_SERVICE_PROVIDERS = [
   ...OPENAI_SERVICE_PROVIDERS,
   ...GEMINI_SERVICE_PROVIDERS,
+  ...GITHUB_COPILOT_SERVICE_PROVIDERS,
 ]
 
 export const RAYCAST_DEFAULT_MODELS = {
