@@ -66,7 +66,10 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 
 You can download the latest dist from [GitHub Actions](https://github.com/wibus-wee/raycast-unblock/actions/workflows/ci.yml).
 
-The naming format is `raycast-unblock-<platform>`, but in fact they are just built on different platforms, so theoretically you can use any of them on any platform.
+The naming format is `raycast-unblock-<platform>-<type>`.
+
+- `js` type is a small package with all dependencies bundled, but requires JS Runtime.
+- `app` type is a single application, which is larger but does **not require** JS Runtime.
 
 ### Set environment variables
 
@@ -78,7 +81,7 @@ After that, you should put the `.env` file in the same directory as the executab
 
 ```bash
 # Your .env file should be in this directory
-node index.mjs
+node index.js # or ./raycast-unblock-app
 
 # ℹ Raycast Unblock
 # ℹ Version: 0.0.0
@@ -144,6 +147,7 @@ For example:
 ```bash
 # Your .env file should be in this directory
 pm2 start index.mjs --name raycast-unblock
+pm2 start ./raycast-unblock-app --name raycast-unblock
 ```
 
 ## Features
