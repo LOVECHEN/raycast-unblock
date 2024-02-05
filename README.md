@@ -11,7 +11,7 @@ Unblock all features in Raycast Pro Plan.
 > This project is for educational purposes only.
 > Please do not use it for commercial purposes.
 
-## Implementation Principle
+## Disclaimer
 
 We only borrowed the **operation interface** of Raycast, and **did not modify the backend server** of Raycast.
 
@@ -27,6 +27,7 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 - [x] AI Chat
   - [x] OpenAI `🧪 Alpha` <sup>(I don't have the OpenAI API usage quota, so I can't test it.)</sup>
   - [x] Gemini
+  - [ ] GitHub Copilot - [Usage](#github-copilot)
 - [x] Translation
   - [x] Shortcut (only for macOS) `🧪 Alpha` - [Usage](#shortcut-translator)
   - [x] AI - [Notice](#ai-translator)
@@ -36,7 +37,12 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
   - [x] Local Storage
 - [x] Other Local Features
 
+<details>
+  <summary>
+
 ## Unblock Routes
+
+  </summary>
 
 - [x] `/me`
 - [x] `/me/trial_status`
@@ -44,6 +50,8 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 - [x] `/ai/models`
 - [x] `/ai/chat_completions`
 - [x] `/translations`
+
+</details>
 
 ## Requirements
 
@@ -139,6 +147,21 @@ pm2 start index.mjs --name raycast-unblock
 ```
 
 ## Features
+
+### GitHub Copilot
+
+Raycast Unblock provides a GitHub Copilot service, which can be used in Raycast feature.
+
+#### Usage
+
+1. Open / Download [scripts/get_copilot_token.mjs](./scripts//get_copilot_token.mjs) and run it.
+2. Follow the steps displayed in the terminal to get the token.
+3. Terminal will output the token, copy it.
+
+> [!CAUTION]
+> Please do not leak this token to others, otherwise it may cause the GitHub Copilot service to be abused, resulting in your account being banned.
+>
+> At the same time, if your backend is shared with others, please pay attention to the usage frequency to avoid deliberate abuse.
 
 ### Shortcut Translator
 
