@@ -92,7 +92,19 @@ If you want to run it in the background, you can use `pm2` or `nohup`.
 ### Use it with Surge
 
 1. Go to [wibus-wee/activation-script](https://github.com/wibus-wee/activation-script) and follow the instructions to get the activation script.
-2. Get your Surge config file and modify it like this: (Normally, `wibus-wee/activation-script` will help you modify this config file)
+
+> [!NOTE]
+>
+> If you modified the `PORT` in the `.env` file, you should modify activator script to make it work properly
+>
+> ```diff
+> - "http://127.0.0.1:3000"
+> + "<Your Remote Server Address>"
+> ```
+>
+> [Related Source Code](https://github.com/wibus-wee/activation-script/blob/main/src/modules/index.ts#L83C14-L83C35)
+
+1. Get your Surge config file and modify it like this: (Normally, `wibus-wee/activation-script` will help you modify this config file)
 
 ```conf
 [MITM]
@@ -119,6 +131,17 @@ raycast-activate-backend.raycast.com = type=http-request,pattern=^https://backen
 
 You need to throw all Raycast requests to the backend built by this project, but make sure that the backend can request Raycast Backend normally, because some functions need to request Raycast Backend once and then do it.
 
+#### Hosts
+
+You can modify your hosts file to make Raycast requests go to the backend built by this project.
+
+```conf
+backend.raycast.com <Your Backend IP>
+# backend.raycast.com 127.0.0.1
+```
+
+But this method is required to modify the port of the backend to `80`. You should modify the `.env` file and set `PORT` to `80`.
+
 > [!NOTE]
 > If you are building the backend locally, please do not let your proxy tool proxy both Raycast's requests and the backend service's requests, as this will cause it to not work properly.
 >
@@ -132,7 +155,12 @@ You need to throw all Raycast requests to the backend built by this project, but
 
 #### Deploy to remote server
 
-Raycast Unblock can be deployed to a remote server, and then you can use it as a proxy server. But you need to modify the code in `activator.js` to make it work properly.
+Raycast Unblock can be deployed to a remote server, and then you can use it as a proxy server. But you need to modify the code in `activator.js` to make it work properly (if you are not using `Modify Hosts` method).
+
+```diff
+- "http://127.0.0.1:3000"
++ "<Your Remote Server Address>"
+```
 
 You should replace `http://127.0.0.1:3000` with your remote server address.
 
