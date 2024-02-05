@@ -10,20 +10,75 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    outputs:
+      id: release
+      value: ${{ steps.create_release.outputs.release_id }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
 
-      - name: Set node
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: lts/*
 
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
       - run: npx changelogithub
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+  upload:
+    needs: release
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+      fail-fast: false
+
+    steps:
+      - name: Build
+        run: |
+          nr build
+          nr build:rollup
+          sh scripts/single-application.sh
+
+      - name: Upload Release Asset for JS
+        if: steps.release.outputs.id != '' && matrix.os == 'ubuntu-latest'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.id }}
+          asset_path: dist/index.js
+          asset_name: raycast-unblock-${{ matrix.os }}-${{ github.ref }}-js
+          asset_content_type: application/javascript
+
+      - name: Upload Artifact for Application
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.id }}
+          asset_path: dist/raycast-unblock-app
+          asset_name: raycast-unblock-${{ matrix.os }}-${{ github.ref }}-app
