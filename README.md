@@ -3,7 +3,7 @@
 [![Version][package-version-src]][package-version-href]
 [![License][license-src]][license-href]
 
-> This project is inspired by [zhuozhiyongde/Unblocking-Raycast-With-Surge](https://github.com/zhuozhiyongde/Unlocking-Raycast-With-Surge), thanks for his work.
+> **Raycast Unblock is currently in heavy development**, with frequent code updates, and you need to keep up with the latest developments in this project.
 
 Unblock all features in Raycast Pro Plan.
 
@@ -27,7 +27,7 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 - [x] AI Chat
   - [x] OpenAI `🧪 Alpha` <sup>(I don't have the OpenAI API usage quota, so I can't test it.)</sup>
   - [x] Gemini
-  - [ ] GitHub Copilot - [Usage](#github-copilot)
+  - [x] GitHub Copilot - [Usage](#github-copilot)
 - [x] Translation
   - [x] Shortcut (only for macOS) `🧪 Alpha` - [Usage](#shortcut-translator)
   - [x] AI - [Notice](#ai-translator)
@@ -159,7 +159,7 @@ Raycast Unblock provides a GitHub Copilot service, which can be used in Raycast 
 3. Terminal will output the token, copy it.
 
 > [!CAUTION]
-> Please do not leak this token to others, otherwise it may cause the GitHub Copilot service to be abused, resulting in your account being banned.
+> Please **do not leak this token to others**, otherwise it may cause the GitHub Copilot service to be abused, resulting in your account being banned.
 >
 > At the same time, if your backend is shared with others, please pay attention to the usage frequency to avoid deliberate abuse.
 
@@ -189,9 +189,11 @@ You can use AI to translate text in Raycast Translate feature. Prompts provided 
 
 ## Credits
 
-- [Raycast](https://raycast.com/)
+- [Raycast](https://raycast.com)
 - [zhuozhiyongde/Unlocking-Raycast-With-Surge](https://github.com/zhuozhiyongde/Unlocking-Raycast-With-Surge)
 - [yufeikang/raycast_api_proxy](https://github.com/yufeikang/raycast_api_proxy)
+- [aaamoon/copilot-gpt4-service](https://github.com/aaamoon/copilot-gpt4-service)
+- [google/generative-ai-js](https://github.com/google/generative-ai-js)
 
 ## Author
 
