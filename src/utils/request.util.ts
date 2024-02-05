@@ -12,6 +12,10 @@ export const httpClient: $Fetch = ofetch.create({
   },
 })
 
+export const copilotClient: $Fetch = ofetch.create({
+  baseURL: 'https://api.github.com',
+})
+
 export async function getBackendResponse(
   url: string,
   headers = {},
