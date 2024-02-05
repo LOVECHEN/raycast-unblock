@@ -8,7 +8,7 @@ import { launch } from './launch'
 import { checkAIConfig } from './utils/env.util'
 import { DATA, TMP } from './constants'
 import { prepareShortcutRunner } from './utils/shortcuts.util'
-import { prepareCache } from './utils/cache.util'
+import { prepareCache, registCache } from './utils/cache.util'
 
 process.title = packageJson.name
 
@@ -48,6 +48,12 @@ Promise.all([
   prepareCache(),
 ]).then(() => {
   consola.success('Utils Preparation is done.')
+})
+
+Promise.all([
+  registCache('copilot'),
+]).then(() => {
+  consola.success('Cache Registration is done.')
 })
 
 checkAIConfig()
