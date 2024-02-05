@@ -8,7 +8,7 @@ on:
   pull_request:
     branches:
       - main
-  # workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   lint:
@@ -20,9 +20,9 @@ jobs:
         uses: pnpm/action-setup@v2
 
       - name: Set node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: latest
 
       - name: Setup
         run: npm i -g @antfu/ni
@@ -44,7 +44,7 @@ jobs:
       - name: Set node
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: latest
 
       - name: Setup
         run: npm i -g @antfu/ni
@@ -60,8 +60,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [lts/*]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
       fail-fast: false
 
     steps:
@@ -70,10 +69,10 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
 
-      - name: Set node ${{ matrix.node }}
-        uses: actions/setup-node@v3
+      - name: Set node latest
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: latest
 
       - name: Setup
         run: npm i -g @antfu/ni
@@ -82,10 +81,19 @@ jobs:
         run: nci
 
       - name: Build
-        run: nr build
+        run: |
+          nr build
+          nr build:rollup
+          sh scripts/single-application.sh
 
-      - name: Upload Artifact
+      - name: Upload Artifact for JS
         uses: actions/upload-artifact@v4
         with:
-          name: raycast-unblock-${{ matrix.os }}
-          path: dist/index.mjs
+          name: raycast-unblock-${{ matrix.os }}-${{ matrix.node }}-js
+          path: dist/index.js
+
+      - name: Upload Artifact for App
+        uses: actions/upload-artifact@v4
+        with:
+          name: raycast-unblock-${{ matrix.os }}-${{ matrix.node }}-app
+          path: dist/raycast-unblock-app
