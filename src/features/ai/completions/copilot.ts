@@ -1,13 +1,14 @@
-import OpenAI from 'openai'
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import destr from 'destr'
+import consola from 'consola'
+import { generateCopilotRequestHeader, getAuthFromToken } from '../../../services/copilot'
 import { getAIConfig } from '../../../utils/env.util'
+import { copilotClient } from '../../../utils'
+import { processStream } from '../../../utils/stream-reader.util'
 
-const openai = new OpenAI({
-  baseURL: getAIConfig().type === 'custom' ? getAIConfig().endpoint : undefined,
-  apiKey: getAIConfig().key,
-})
+const completions = '/chat/completions'
 
-export async function OpenAIChatCompletion(request: FastifyRequest, reply: FastifyReply) {
+export async function CopilotChatCompletion(request: FastifyRequest, reply: FastifyReply) {
   const body = request.body as {
     additional_system_instructions: string
     temperature: number
@@ -23,12 +24,33 @@ export async function OpenAIChatCompletion(request: FastifyRequest, reply: Fasti
     }[]
   }
 
-  const openai_message = []
+  const app_token = getAIConfig().key
+  if (!app_token) {
+    consola.error(`[Copilot] Auth error: Missing token`)
+    return reply.status(401).send({ message: 'Unauthorized. Missing token' })
+  }
+  try {
+    const _ = await getAuthFromToken(app_token)
+  }
+  catch (e: any) {
+    consola.error(`[Copilot] Auth error: ${e.message}.`)
+    return reply.status(401).send({ message: 'Unauthorized. Invalid token' })
+  }
+
   let temperature = Number(getAIConfig().temperature || 0.5)
+  const requestBody = {
+    messages: [] as any[],
+    model: 'gpt-4',
+    temperature,
+    top_p: 1,
+    n: 1,
+    stream: true,
+  }
+  const headers = generateCopilotRequestHeader(app_token, true) as Record<string, string>
   const messages = body.messages
   for (const message of messages) {
     if ('system_instructions' in message.content) {
-      openai_message.push(
+      requestBody.messages.push(
         {
           role: 'system',
           content: message.content.system_instructions,
@@ -37,7 +59,7 @@ export async function OpenAIChatCompletion(request: FastifyRequest, reply: Fasti
     }
 
     if ('command_instructions' in message.content) {
-      openai_message.push(
+      requestBody.messages.push(
         {
           role: 'system',
           content: message.content.command_instructions,
@@ -46,7 +68,7 @@ export async function OpenAIChatCompletion(request: FastifyRequest, reply: Fasti
     }
 
     if ('additional_system_instructions' in body) {
-      openai_message.push(
+      requestBody.messages.push(
         {
           role: 'system',
           content: body.additional_system_instructions,
@@ -55,7 +77,7 @@ export async function OpenAIChatCompletion(request: FastifyRequest, reply: Fasti
     }
 
     if ('text' in message.content) {
-      openai_message.push(
+      requestBody.messages.push(
         {
           role: message.author,
           content: message.content.text,
@@ -66,22 +88,27 @@ export async function OpenAIChatCompletion(request: FastifyRequest, reply: Fasti
     if ('temperature' in message.content)
       temperature = message.content.temperature
   }
-  const model = messages[0].content.model
-  const stream = await openai.chat.completions.create({
-    stream: true,
-    messages: openai_message as any,
-    model: model as any,
-    temperature,
-    stop: null,
-    n: 1,
-    max_tokens: getAIConfig().max_tokens ? Number(getAIConfig().max_tokens) : undefined,
+
+  const res = await copilotClient.native(`https://api.githubcopilot.com${completions}`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(requestBody),
   })
+    .catch((e: any) => {
+      consola.error(`[Copilot] Request error: ${e.message}.`)
+      return null
+    })
+  if (!res?.ok)
+    return reply.status(500).send({ message: 'Internal server error' })
+
+  const stream = processStream(res).stream as any
 
   return reply.sse((async function * source() {
     try {
       for await (const data of stream) {
+        const json = destr(data) as any
         const res = {
-          text: data.choices[0].delta.content,
+          text: json.choices[0]?.delta.content || '',
         }
         yield { data: JSON.stringify(res) }
       }

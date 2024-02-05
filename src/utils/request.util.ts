@@ -1,4 +1,5 @@
 import process from 'node:process'
+import consola from 'consola'
 import type { $Fetch } from 'ofetch'
 import { ofetch } from 'ofetch'
 
@@ -10,10 +11,21 @@ export const httpClient: $Fetch = ofetch.create({
   headers: {
     'x-raycast-unblock': 'true',
   },
+  onRequestError: (ctx) => {
+    consola.error(`[Raycast Backend] Request error`)
+    console.error(ctx.error)
+  },
 })
 
 export const copilotClient: $Fetch = ofetch.create({
-  baseURL: 'https://api.github.com',
+  baseURL: 'https://api.githubcopilot.com',
+  onRequest: (ctx) => {
+    consola.info(`[GitHub Copilot] Request: ${ctx.request}`)
+  },
+  onRequestError: (ctx) => {
+    consola.error(`[GitHub Copilot] Request error`)
+    console.error(ctx.error)
+  },
 })
 
 export async function getBackendResponse(

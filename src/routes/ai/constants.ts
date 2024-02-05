@@ -63,5 +63,12 @@ export const RAYCAST_GEMINI_PRO_ONLY_MODELS = {
   api: 'gemini-pros',
 }
 
+export const RAYCAST_COPILOT_MODELS = {
+  chat: 'github-copilot',
+  quick_ai: 'github-copilot',
+  commands: 'github-coilot',
+  api: 'github-copilot',
+}
+
 export const OPENAI_OFFICIAL_ENDPOINT = 'https://api.openai.com/v1/chat/completions'
 export const GEMINI_OFFICIAL_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent'
