@@ -31,6 +31,14 @@ export async function CopilotChatCompletion(request: FastifyRequest, reply: Fast
   }
   try {
     const _ = await getAuthFromToken(app_token)
+      .then((_) => {
+        consola.success(`[Copilot] Auth success.`)
+        return _
+      })
+      .catch((e: any) => {
+        consola.error(`[Copilot] Auth error: ${e.message}.`)
+        return reply.status(401).send({ message: 'Unauthorized. Invalid token' })
+      })
   }
   catch (e: any) {
     consola.error(`[Copilot] Auth error: ${e.message}.`)

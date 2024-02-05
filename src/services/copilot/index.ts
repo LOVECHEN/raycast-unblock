@@ -36,6 +36,22 @@ export async function getAuthFromToken(token: string) {
   }
 }
 
+async function refreshSession(token: string) {
+  const cache = getCache('copilot', 'auth') as GithubCopilotTokenAuthorization[] || []
+  const authInCache = cache.find((c: GithubCopilotTokenAuthorization) => c.app_token === token)
+  if (!authInCache)
+    return null
+  if (authInCache.session_expires_at < new Date().getTime()) {
+    consola.info(`[Copilot] Session Expired. Refreshing GithubCopilot Authorization Token in Cache.`)
+    authInCache.session_expires_at = new Date().getTime() + 60 * 15
+    authInCache.vscode_sessionid = uuid() + new Date().getTime()
+    const auth = await fetchAuth(token)
+    authInCache.app_token = auth.token
+    setCache('copilot', 'auth', cache.map((c: GithubCopilotTokenAuthorization) => c.app_token === token ? authInCache : c))
+    consola.success(`[Copilot] Refresh GithubCopilot Authorization Token in Cache. Token: ${token} Session Expires: ${authInCache.session_expires_at}`)
+  }
+}
+
 export function setAuthToCache(token: string, auth: Authorization) {
   const cache = getCache('copilot', 'auth') as GithubCopilotTokenAuthorization[] || []
   const vscode_sessionid = uuid() + new Date().getTime()
@@ -65,12 +81,7 @@ export function getAuthFromCache(token: string): GithubCopilotTokenAuthorization
   const authInCache = cache.find((c: GithubCopilotTokenAuthorization) => c.app_token === token)
   if (!authInCache)
     return null
-  if (authInCache.session_expires_at < new Date().getTime()) {
-    authInCache.session_expires_at = new Date().getTime() + 60 * 15
-    authInCache.vscode_sessionid = uuid() + new Date().getTime()
-    setCache('copilot', 'auth', cache.map((c: GithubCopilotTokenAuthorization) => c.app_token === token ? authInCache : c))
-    consola.success(`[Copilot] Refresh GithubCopilot Authorization Token in Cache. VSCode SessionID: ${authInCache.vscode_sessionid} MachineID: ${authInCache.vscode_machineid} Session Expires: ${authInCache.session_expires_at}`)
-  }
+  refreshSession(token)
   // const now = new Date().getTime() + 600
   // if (authInCache && new Date(authInCache.expires_at).getTime() > now) {
   //   return authInCache
