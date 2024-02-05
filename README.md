@@ -25,7 +25,7 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 
 - [x] Pro Plan Logo
 - [x] AI Chat
-  - [x] OpenAI `🧪 Alpha` <sup>(I don't have the OpenAI API usage quota, so I can't test it.)</sup>
+  - [x] OpenAI
   - [x] Gemini
   - [x] GitHub Copilot - [Usage](#github-copilot)
 - [x] Translation
@@ -194,6 +194,13 @@ Raycast Unblock provides a GitHub Copilot service, which can be used in Raycast 
 > Please **do not leak this token to others**, otherwise it may cause the GitHub Copilot service to be abused, resulting in your account being banned.
 >
 > At the same time, if your backend is shared with others, please pay attention to the usage frequency to avoid deliberate abuse.
+
+#### More
+
+Or you can use [aaamoon/copilot-gpt4-service](htts://github.com/aaamoon/copilot-gpt4-service) to convert GitHub Copilot to OpenAI GPT API format, and you can use it to use GitHub Copilot.
+
+> [!NOTE]
+> You should set `AI_TYPE` to `openai` or `custom` in the `.env` file, and set `OPENAI_BASE_URL` to the address of the `copilot-gpt4-service` service.
 
 ### Shortcut Translator
 
