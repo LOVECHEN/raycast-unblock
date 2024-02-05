@@ -23,10 +23,13 @@ export function registCache(name: string) {
   return dataPath
 }
 
-export function getCache(name: string) {
+export function getCache(name: string, key?: string) {
   const dataPath = resolve(DATA, 'cache', name)
   const o = fs.readFileSync(dataPath, 'utf-8')
-  return destr(o)
+  const de = destr(o) as any
+  if (key)
+    return de[key]
+  return de
 }
 
 export function setFullCache(name: string, data: any) {
