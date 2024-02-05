@@ -10,6 +10,7 @@ const openai = new OpenAI({
 export async function OpenAIChatCompletion(request: FastifyRequest, reply: FastifyReply) {
   const body = request.body as {
     additional_system_instructions: string
+    model: string
     temperature: number
     messages: {
       content: {
@@ -66,11 +67,10 @@ export async function OpenAIChatCompletion(request: FastifyRequest, reply: Fasti
     if ('temperature' in message.content)
       temperature = message.content.temperature
   }
-  const model = messages[0].content.model
   const stream = await openai.chat.completions.create({
     stream: true,
     messages: openai_message as any,
-    model: model as any,
+    model: body.model,
     temperature,
     stop: null,
     n: 1,
@@ -80,9 +80,15 @@ export async function OpenAIChatCompletion(request: FastifyRequest, reply: Fasti
   return reply.sse((async function * source() {
     try {
       for await (const data of stream) {
-        const res = {
-          text: data.choices[0].delta.content,
-        }
+        const { choices: [{ delta: { content }, finish_reason }] } = data
+
+        if (!content && !finish_reason)
+          continue // ignore this line
+
+        const res: Record<string, unknown> = { text: content || '' }
+        if (finish_reason)
+          res.finish_reason = finish_reason
+
         yield { data: JSON.stringify(res) }
       }
     }
