@@ -37,39 +37,32 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 - [x] AI Chat
   - [x] OpenAI
   - [x] Gemini
-  - [x] GitHub Copilot - [Usage](#github-copilot)
+  - [x] [GitHub Copilot]#github-copilot)
+  - [ ] More?
 - [x] Translation
-  - [x] Shortcut (only for macOS) `🧪 Alpha` - [Usage](#shortcut-translator)
-  - [x] AI - [Notice](#ai-translator)
-  - [ ] 3rd Party `🤔 Help Wanted`
-    - [x] DeepLX
+  - [x] [Shortcut](#shortcut-translator) (Only for macOS)
+  - [x] [AI]#ai-translator)
+  - [x] DeepLX
+  - [ ] More?
 - [x] Cloud Sync
-  - [x] iCloud Drive (only for macOS)
+  - [x] iCloud Drive (Only for macOS)
   - [x] Local Storage
-- [x] Other Local Features
+- [x] Others
+  - [x] Theme Studio
 
-<details>
-  <summary>
-
-## Unblock Routes
-
-  </summary>
-
-- [x] `/me`
-- [x] `/me/trial_status`
-- [x] `/me/sync`
-- [x] `/ai/models`
-- [x] `/ai/chat_completions`
-- [x] `/translations`
-
-</details>
+If you have any feature requests, please feel free to ask.
 
 ## Requirements
 
 - Node.js 18.x
+- Raycast
 - macOS / Linux (Windows is not maintained)
 - Surge (or other proxy tools)
-- Raycast
+
+## Quick Links
+
+- [I don't want to install Node.js, how can I use it? - Q&A](#i-dont-want-to-install-nodejs-how-can-i-use-it)
+- [I don't buy Surge, how can I use it? - Q&A](#i-dont-buy-surge-how-can-i-use-it)
 
 ## Usage
 
@@ -277,6 +270,24 @@ You can use AI to translate text in Raycast Translate feature. Prompts provided 
 #### Notice
 
 - Pay attention to the request and usage issues, Translator may cause frequent requests to AI services, resulting in overuse or rate limit, so please use it carefully.
+
+## Q&A
+
+### I don't want to install Node.js, how can I use it?
+
+You can use the `app` type dist, which is a single application, and does **not require** JS Runtime. Or use Docker to run it.
+
+- [Download dist from actions - Usage](#download-dist-from-actions)
+- [Docker - Usage](#docker-recommended)
+- [Docker Compose - Usage](#docker-compose)
+
+### I don't buy Surge, how can I use it?
+
+Referring to the relevant code of [activation-script](https://github.com/wibus-wee/activation-script/blob/main/src/modules/index.ts#L70-L89) and porting it to other agent tools to continue using MiTM to hijack.
+
+You can also use the Hosts file to forward Raycast requests to the backend service of Raycast Unblock.
+
+- [If you don't have Surge - Usage](#if-you-dont-have-surge)
 
 ## Credits
 
