@@ -37,11 +37,11 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 - [x] AI Chat
   - [x] OpenAI
   - [x] Gemini
-  - [x] [GitHub Copilot]#github-copilot)
+  - [x] [GitHub Copilot](#github-copilot)
   - [ ] More?
 - [x] Translation
   - [x] [Shortcut](#shortcut-translator) (Only for macOS)
-  - [x] [AI]#ai-translator)
+  - [x] [AI](#ai-translator)
   - [x] DeepLX
   - [ ] More?
 - [x] Cloud Sync
@@ -50,14 +50,14 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 - [x] Others
   - [x] Theme Studio
 
-If you have any feature requests, please feel free to ask.
+<sup>If you have any feature requests, please feel free to ask.</sup>
 
 ## Requirements
 
-- Node.js 18.x
+- ~~Node.js 18.x~~
 - Raycast
 - macOS / Linux (Windows is not maintained)
-- Surge (or other proxy tools)
+- Surge (or other proxy tools) **(optional)**
 
 ## Quick Links
 
