@@ -9,44 +9,44 @@ import { AIRoute } from './routes/ai'
 import { TranslationsRoute } from './routes/translations'
 import { Debug } from './utils/log.util'
 
-const fastify = Fastify({ logger: false })
-fastify.register(FastifySSEPlugin)
-
 const prefix = '/api/v1'
 
-fastify.register(MeRoute, { prefix: `${prefix}/me` })
-fastify.register(AIRoute, { prefix: `${prefix}/ai` })
-fastify.register(TranslationsRoute, { prefix: `${prefix}/translations` })
-
-fastify.get('/', async (_request, _reply) => {
-  return {
-    name: packageJson.name,
-    version: packageJson.version,
-    author: packageJson.author,
-  }
-})
-
-fastify.get('/*', async (request, reply) => {
-  const subUrl = request.url.substr(0, 30)
-  Debug.info(`[GET] ${subUrl} <-- 托底策略 --> Backend Request`)
-  request.headers = {
-    ...request.headers,
-    host: 'backend.raycast.com',
-  }
-  const backendResponse = await httpClient(`/${(request.params as any)['*']}`, {
-    headers: request.headers as Record<string, string>,
-    method: 'GET',
-    baseURL: 'https://backend.raycast.com', // This is the only difference
-  }).catch((reason) => {
-    consola.error(`[GET] ${subUrl} <-- 托底策略 <-x- Backend Response Error`)
-    consola.error(reason)
-    return reply.send(reason)
-  })
-  Debug.info(`[GET] ${subUrl} <-- 托底策略 <-- Backend Response`)
-  return reply.send(backendResponse)
-})
-
 export function launch() {
+  const fastify = Fastify({ logger: process.env.DEBUG })
+  fastify.register(FastifySSEPlugin)
+
+  fastify.register(MeRoute, { prefix: `${prefix}/me` })
+  fastify.register(AIRoute, { prefix: `${prefix}/ai` })
+  fastify.register(TranslationsRoute, { prefix: `${prefix}/translations` })
+
+  fastify.get('/', async (_request, _reply) => {
+    return {
+      name: packageJson.name,
+      version: packageJson.version,
+      author: packageJson.author,
+    }
+  })
+
+  fastify.get('/*', async (request, reply) => {
+    const subUrl = request.url.substr(0, 30)
+    Debug.info(`[GET] ${subUrl} <-- 托底策略 --> Backend Request`)
+    request.headers = {
+      ...request.headers,
+      host: 'backend.raycast.com',
+    }
+    const backendResponse = await httpClient(`/${(request.params as any)['*']}`, {
+      headers: request.headers as Record<string, string>,
+      method: 'GET',
+      baseURL: 'https://backend.raycast.com', // This is the only difference
+    }).catch((reason) => {
+      consola.error(`[GET] ${subUrl} <-- 托底策略 <-x- Backend Response Error`)
+      consola.error(reason)
+      return reply.send(reason)
+    })
+    Debug.info(`[GET] ${subUrl} <-- 托底策略 <-- Backend Response`)
+    return reply.send(backendResponse)
+  })
+
   consola.info(`Raycast Unblock`)
   consola.info(`Version: ${packageJson.version}`)
   consola.info('Server starting...')
