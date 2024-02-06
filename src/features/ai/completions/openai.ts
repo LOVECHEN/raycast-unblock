@@ -2,12 +2,12 @@ import OpenAI from 'openai'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { getAIConfig } from '../../../utils/env.util'
 
-const openai = new OpenAI({
-  baseURL: getAIConfig().type === 'custom' ? getAIConfig().endpoint : undefined,
-  apiKey: getAIConfig().key,
-})
-
 export async function OpenAIChatCompletion(request: FastifyRequest, reply: FastifyReply) {
+  const openai = new OpenAI({
+    baseURL: getAIConfig().type === 'custom' ? getAIConfig().endpoint : undefined,
+    apiKey: getAIConfig().key,
+  })
+
   const body = request.body as {
     additional_system_instructions: string
     model: string

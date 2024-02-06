@@ -2,10 +2,10 @@ import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from '@google/ge
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { getAIConfig } from '../../../utils/env.util'
 
-const genAI = new GoogleGenerativeAI(getAIConfig().key)
-const model = genAI.getGenerativeModel({ model: 'gemini-pro' })
-
 export async function GeminiChatCompletion(request: FastifyRequest, reply: FastifyReply) {
+  const genAI = new GoogleGenerativeAI(getAIConfig().key)
+  const model = genAI.getGenerativeModel({ model: 'gemini-pro' })
+
   const body = request.body as {
     additional_system_instructions: string
     temperature: number
