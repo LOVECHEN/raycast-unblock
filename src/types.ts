@@ -11,6 +11,7 @@ export interface EnvConfig {
   AI_TEMPERATURE: string
   TRANSLATE_TYPE: 'shortcut' | 'ai' | 'deeplx' | 'libre_translate'
   LIBRE_TRANSLATE_TYPE: 'reverse' | 'api'
+  LIBRE_TRANSLATE_ENDPOINT?: string
   LIBRE_TRANSLATE_API_KEY?: string
   DEEPLX_PROXY_ENDPOINT?: string
   DEEPLX_ACCESS_TOKEN?: string
@@ -29,6 +30,7 @@ export const KeyOfEnvConfig: (keyof EnvConfig)[] = [
   'AI_TEMPERATURE',
   'TRANSLATE_TYPE',
   'LIBRE_TRANSLATE_TYPE',
+  'LIBRE_TRANSLATE_ENDPOINT',
   'LIBRE_TRANSLATE_API_KEY',
   'DEEPLX_PROXY_ENDPOINT',
   'DEEPLX_ACCESS_TOKEN',
