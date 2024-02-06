@@ -1,5 +1,4 @@
 import type { FastifyRequest } from 'fastify'
-import consola from 'consola'
 import { GetCloudSync, PutCloudSync } from '../../features/sync/impl'
 import { Debug } from '../../utils/log.util'
 

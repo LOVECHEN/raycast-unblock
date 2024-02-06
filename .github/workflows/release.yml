@@ -54,6 +54,20 @@ jobs:
       fail-fast: false
 
     steps:
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+
+      - name: Setup
+        run: npm i -g @antfu/ni
+
+      - name: Install
+        run: nci
+
       - name: Build
         run: |
           nr build

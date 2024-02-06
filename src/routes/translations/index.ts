@@ -1,5 +1,4 @@
 import process from 'node:process'
-import consola from 'consola'
 import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import { TranslateWithShortcut } from '../../features/translations/shortcuts'
 import { TranslateWithAI } from '../../features/translations/ai'
