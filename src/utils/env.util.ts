@@ -14,8 +14,8 @@ export function injectEnv() {
     process.exit(0)
   }
   let envPath = '.env'
-  if (argv.env || argv.ENV)
-    envPath = argv.env
+  if (argv.env || argv.ENV || process.env.ENV)
+    envPath = argv.env || argv.ENV || process.env.ENV
   const env = dotenv.config({
     path: envPath,
   })
