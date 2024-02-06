@@ -1,27 +1,14 @@
-version: '3.8'
-
+version: '3'
 services:
-  app:
-    container_name: raycast-unblock
-    # ## You can also add arguments to the command line here, such as the following
-    # ## If you need to use .env file, please uncomment the following line ####
-    # command: --env=./config/.env
+  raycast-unblock:
     image: wibuswee/raycast-unblock:latest
-    environment:
-      - TZ=Asia/Shanghai
-      - PORT=3000
-      - HOST=0.0.0.0
-      # - AI_API_KEY=your_api_key
-      # - TRANSLATE_TYPE=ai
-    # ## If you need to use .env file, please uncomment the following line ####
-    volumes:
-      - ./configs/raycast-unblock:/app/config
-    ports:
-      - '3000:3000'
+    container_name: raycast-unblock
+    hostname: raycast-unblock
     restart: always
-    healthcheck:
-      test: [CMD, curl, -f, 'http://127.0.0.1:3000']
-      interval: 1m30s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
+    command: >
+      --ai_key=your-open-ai-key
+      --openai_base_url=https://api.openai.com
+      --ai_type=openai
+      --host=0.0.0.0
+    ports:
+      - "3000:3000"
