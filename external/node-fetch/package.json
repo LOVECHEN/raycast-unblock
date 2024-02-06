@@ -1,0 +1,4 @@
+{
+  "name": "node-fetch",
+  "main": "./index.js"
+}

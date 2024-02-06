@@ -88,6 +88,9 @@
       "fastify-sse-v2@3.1.2": "patches/fastify-sse-v2@3.1.2.patch"
     }
   },
+  "resolutions": {
+    "node-fetch": "./external/node-fetch"
+  },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
   },
