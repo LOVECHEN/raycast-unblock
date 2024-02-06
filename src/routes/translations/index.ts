@@ -4,6 +4,7 @@ import { TranslateWithShortcut } from '../../features/translations/shortcuts'
 import { TranslateWithAI } from '../../features/translations/ai'
 import { Debug } from '../../utils/log.util'
 import { TranslateWithDeepLX } from '../../features/translations/deeplx'
+import { TranslateWithLibreTranslate } from '../../features/translations/libre-translate'
 
 export function TranslationsRoute(fastify: FastifyInstance, opts: Record<any, any>, done: Function) {
   fastify.post('/', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -19,6 +20,9 @@ export function TranslationsRoute(fastify: FastifyInstance, opts: Record<any, an
         break
       case 'deeplx':
         res = await TranslateWithDeepLX(request)
+        break
+      case 'libre_translate':
+        res = await TranslateWithLibreTranslate(request)
         break
       default:
         res = await TranslateWithAI(request)

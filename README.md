@@ -39,10 +39,11 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
   - [x] Gemini
   - [x] [GitHub Copilot](#github-copilot)
   - [ ] More?
-- [x] Translation
+- [x] Translations
   - [x] [Shortcut](#shortcut-translator) (Only for macOS)
   - [x] [AI](#ai-translator)
   - [x] DeepLX
+  - [x] LibreTranslate - [Official Website](https://libretranslate.com)
   - [ ] More?
 - [x] Cloud Sync
   - [x] iCloud Drive (Only for macOS)

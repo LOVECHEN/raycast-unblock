@@ -9,7 +9,9 @@ export interface EnvConfig {
   OPENAI_BASE_URL: string
   AI_MAX_TOKENS: string
   AI_TEMPERATURE: string
-  TRANSLATE_TYPE: 'shortcut' | 'ai' | 'deeplx'
+  TRANSLATE_TYPE: 'shortcut' | 'ai' | 'deeplx' | 'libre_translate'
+  LIBRE_TRANSLATE_TYPE: 'reverse' | 'api'
+  LIBRE_TRANSLATE_API_KEY?: string
   DEEPLX_PROXY_ENDPOINT?: string
   DEEPLX_ACCESS_TOKEN?: string
   PORT: string
@@ -26,6 +28,8 @@ export const KeyOfEnvConfig: (keyof EnvConfig)[] = [
   'AI_MAX_TOKENS',
   'AI_TEMPERATURE',
   'TRANSLATE_TYPE',
+  'LIBRE_TRANSLATE_TYPE',
+  'LIBRE_TRANSLATE_API_KEY',
   'DEEPLX_PROXY_ENDPOINT',
   'DEEPLX_ACCESS_TOKEN',
   'PORT',
