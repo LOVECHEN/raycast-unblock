@@ -13,6 +13,8 @@ export function Completions(request: FastifyRequest, reply: FastifyReply) {
       return OpenAIChatCompletion(request, reply)
     case 'copilot':
       return CopilotChatCompletion(request, reply)
+    case 'custom':
+      return OpenAIChatCompletion(request, reply)
     default:
       break
   }
