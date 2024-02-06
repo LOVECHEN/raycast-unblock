@@ -14,7 +14,7 @@ services:
       # - ENV=./config/.env
     # ### If you need to use .env file, please uncomment the following line ####
     # volumes:
-    #   - ./config/raycast-unblock:/app/config
+    #   - ./configs/raycast-unblock:/app/config
     ports:
       - '3000:3000'
     restart: always
