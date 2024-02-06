@@ -19,6 +19,8 @@ docker run -d --name raycast-unblock -p 3000:3000 --ai_key=your-open-ai-key --op
 
 > Replace `your-open-ai-key` with your OpenAI API key.
 
+More details can be found in [Usage](#usage).
+
 ## Disclaimer
 
 We only borrowed the **operation interface** of Raycast, and **did not modify the backend server** of Raycast.
