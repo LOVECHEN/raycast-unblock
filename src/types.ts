@@ -6,7 +6,7 @@ export interface User {
 export interface EnvConfig {
   AI_TYPE: 'openai' | 'gemini' | 'custom' | 'copilot'
   AI_API_KEY: string
-  AI_ENDPOINT: string
+  OPENAI_BASE_URL: string
   AI_MAX_TOKENS: string
   AI_TEMPERATURE: string
   TRANSLATE_TYPE: 'shortcut' | 'ai' | 'custom' | 'github'
@@ -20,7 +20,7 @@ export interface EnvConfig {
 export const KeyOfEnvConfig: (keyof EnvConfig)[] = [
   'AI_TYPE',
   'AI_API_KEY',
-  'AI_ENDPOINT',
+  'OPENAI_BASE_URL',
   'AI_MAX_TOKENS',
   'AI_TEMPERATURE',
   'TRANSLATE_TYPE',
