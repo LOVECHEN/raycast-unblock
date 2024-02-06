@@ -5,12 +5,17 @@ import { ofetch } from 'ofetch'
 import { Debug } from './log.util'
 
 // Disable SSL verification. (Local Server)
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+if (process.env.MODE === 'local') {
+  Debug.info('Disabling SSL verification')
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+}
 
 export const httpClient: $Fetch = ofetch.create({
   baseURL: 'https://backend.raycast.com/api/v1',
   headers: {
-    'x-raycast-unblock': 'true',
+    ...(process.env.MODE === 'local' && {
+      'x-raycast-unblock': 'true',
+    }),
   },
   onRequestError: (ctx) => {
     consola.error(`[Raycast Backend] Request error`)

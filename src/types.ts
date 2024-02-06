@@ -15,6 +15,7 @@ export interface EnvConfig {
   HOST: string
   ENV: string
   DEBUG: boolean
+  MODE: 'local' | 'remote'
 }
 
 export const KeyOfEnvConfig: (keyof EnvConfig)[] = [
@@ -29,6 +30,7 @@ export const KeyOfEnvConfig: (keyof EnvConfig)[] = [
   'HOST',
   'ENV',
   'DEBUG',
+  'MODE',
 ]
 
 export interface AIConfig {
