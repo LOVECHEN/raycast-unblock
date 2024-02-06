@@ -14,6 +14,7 @@ export interface EnvConfig {
   PORT: string
   HOST: string
   ENV: string
+  DEBUG: boolean
 }
 
 export const KeyOfEnvConfig: (keyof EnvConfig)[] = [
@@ -27,6 +28,7 @@ export const KeyOfEnvConfig: (keyof EnvConfig)[] = [
   'PORT',
   'HOST',
   'ENV',
+  'DEBUG',
 ]
 
 export interface AIConfig {

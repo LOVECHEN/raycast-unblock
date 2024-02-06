@@ -1,25 +1,25 @@
 import fs from 'node:fs'
 import { resolve } from 'node:path'
-import consola from 'consola'
 import destr from 'destr'
 import { DATA } from '../constants'
+import { Debug } from './log.util'
 
 export function prepareCache() {
-  consola.info('[Cache] Checking cache data folder...')
+  Debug.info('[Cache] Checking cache data folder...')
   const data = resolve(DATA, 'cache')
   if (!fs.existsSync(data)) {
-    consola.info('[Cache] Creating cache data folder...')
+    Debug.info('[Cache] Creating cache data folder...')
     fs.mkdirSync(data, { recursive: true })
   }
-  consola.success('[Cache] Cache data folder is ready')
+  Debug.success('[Cache] Cache data folder is ready')
 }
 
 export function registCache(name: string) {
   const dataPath = resolve(DATA, 'cache', `${name}.json`)
-  consola.info('[Cache] Registering cache data folder...')
+  Debug.info('[Cache] Registering cache data folder...')
   if (!fs.existsSync(dataPath))
     fs.writeFileSync(dataPath, '')
-  consola.success(`[Cache] ${name} is registered`)
+  Debug.success(`[Cache] ${name} is registered`)
   return dataPath
 }
 

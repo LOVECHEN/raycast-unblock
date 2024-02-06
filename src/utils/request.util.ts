@@ -2,6 +2,7 @@ import process from 'node:process'
 import consola from 'consola'
 import type { $Fetch } from 'ofetch'
 import { ofetch } from 'ofetch'
+import { Debug } from './log.util'
 
 // Disable SSL verification. (Local Server)
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
@@ -20,7 +21,7 @@ export const httpClient: $Fetch = ofetch.create({
 export const copilotClient: $Fetch = ofetch.create({
   baseURL: 'https://api.githubcopilot.com',
   onRequest: (ctx) => {
-    consola.info(`[GitHub Copilot] Request: ${ctx.request}`)
+    Debug.info(`[GitHub Copilot] Request: ${ctx.request}`)
   },
   onRequestError: (ctx) => {
     consola.error(`[GitHub Copilot] Request error`)

@@ -3,13 +3,14 @@ import consola from 'consola'
 import { getBackendResponse } from '../../utils'
 import { getStore, setStore } from '../../utils/store.util'
 import type { User } from '../../types'
+import { Debug } from '../../utils/log.util'
 import { TrialStatus } from './trialStatus'
 import { GetSync, PutSync } from './sync'
 
 export async function Me(request: FastifyRequest) {
   return await getBackendResponse('/me', request.headers, 'GET')
     .then((response) => {
-      consola.info('[GET] /me --> Backend Response --> Modify Response')
+      Debug.info('[GET] /me --> Backend Response --> Modify Response')
       return {
         ...response,
         has_active_subscription: true,
@@ -30,17 +31,17 @@ export async function Me(request: FastifyRequest) {
 
 export function MeRoute(fastify: FastifyInstance, opts: Record<any, any>, done: Function) {
   fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => {
-    consola.info('[GET] /me --> Backend Request')
+    Debug.info('[GET] /me --> Backend Request')
     const backendResponse = await Me(request).catch((reason) => {
       consola.error('[GET] /me <-x- Backend Response Error')
       consola.error(reason)
       return reply.send(reason)
     })
-    consola.info('[GET] /me <-- Backend Response')
+    Debug.info('[GET] /me <-- Backend Response')
     const store = getStore<User[]>('users') || []
     const user = store.find(u => u.email === backendResponse.email) || null
     if (user?.token !== request.headers.authorization) {
-      consola.success(`<${backendResponse.email}> is logged in.`)
+      Debug.success(`<${backendResponse.email}> is logged in.`)
       setStore('users', [
         ...getStore<User[]>('users'),
         {
@@ -54,35 +55,35 @@ export function MeRoute(fastify: FastifyInstance, opts: Record<any, any>, done: 
   })
 
   fastify.get('/trial_status', async (request: FastifyRequest, reply: FastifyReply) => {
-    consola.info('[GET] /me/trial_status --> Backend Request')
+    Debug.info('[GET] /me/trial_status --> Backend Request')
     const backendResponse = await TrialStatus(request).catch((reason) => {
       consola.error('[GET] /me/trial_status <-x- Backend Response Error')
       consola.error(reason)
       return reply.send(reason)
     })
-    consola.info('[GET] /me/trial_status <-- Backend Response')
+    Debug.info('[GET] /me/trial_status <-- Backend Response')
     return reply.send(backendResponse)
   })
 
   fastify.get('/sync', async (request: FastifyRequest, reply: FastifyReply) => {
-    consola.info('[GET] /me/sync --> Pro Feature Impl')
+    Debug.info('[GET] /me/sync --> Pro Feature Impl')
     const backendResponse = await GetSync(request).catch((reason) => {
       consola.error('[GET] /me/sync <-- Pro Feature Impl Error')
       consola.error(reason)
       return reply.send(reason)
     })
-    consola.info('[GET] /me/sync <-- Pro Feature Impl Response')
+    Debug.info('[GET] /me/sync <-- Pro Feature Impl Response')
     return reply.send(backendResponse)
   })
 
   fastify.put('/sync', async (request: FastifyRequest, reply: FastifyReply) => {
-    consola.info('[PUT] /me/sync --> Pro Feature Impl')
+    Debug.info('[PUT] /me/sync --> Pro Feature Impl')
     const backendResponse = await PutSync(request).catch((reason) => {
       consola.error('[PUT] /me/sync <-- Pro Feature Impl Error')
       consola.error(reason)
       return reply.send(reason)
     })
-    consola.info('[PUT] /me/sync <-- Pro Feature Impl Response')
+    Debug.info('[PUT] /me/sync <-- Pro Feature Impl Response')
     return reply.send(backendResponse)
   })
 

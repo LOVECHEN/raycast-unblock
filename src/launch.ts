@@ -7,6 +7,7 @@ import { MeRoute } from './routes/me'
 import { httpClient } from './utils'
 import { AIRoute } from './routes/ai'
 import { TranslationsRoute } from './routes/translations'
+import { Debug } from './utils/log.util'
 
 const fastify = Fastify({ logger: false })
 fastify.register(FastifySSEPlugin)
@@ -27,7 +28,7 @@ fastify.get('/', async (_request, _reply) => {
 
 fastify.get('/*', async (request, reply) => {
   const subUrl = request.url.substr(0, 30)
-  consola.info(`[GET] ${subUrl} <-- 托底策略 --> Backend Request`)
+  Debug.info(`[GET] ${subUrl} <-- 托底策略 --> Backend Request`)
   request.headers = {
     ...request.headers,
     host: 'backend.raycast.com',
@@ -41,19 +42,19 @@ fastify.get('/*', async (request, reply) => {
     consola.error(reason)
     return reply.send(reason)
   })
-  consola.info(`[GET] ${subUrl} <-- 托底策略 <-- Backend Response`)
+  Debug.info(`[GET] ${subUrl} <-- 托底策略 <-- Backend Response`)
   return reply.send(backendResponse)
 })
 
 export function launch() {
   consola.info(`Raycast Unblock`)
   consola.info(`Version: ${packageJson.version}`)
-  consola.info('Proxy Server starting...')
+  consola.info('Server starting...')
   fastify.listen({ port: (process.env.PORT ? Number(process.env.PORT) : 3000), host: (process.env.HOST || '127.0.0.1') }, (err, address) => {
     if (err) {
       consola.error(err)
       process.exit(1)
     }
-    consola.success(`Proxy Server listening on ${address}. Fallback policy is activated.`)
+    consola.success(`Server listening on ${address}.`)
   })
 }

@@ -1,9 +1,9 @@
-import consola from 'consola'
 import { ofetch } from 'ofetch'
 import { v4 as uuid } from 'uuid'
 import type { FastifyRequest } from 'fastify'
 import type { GithubCopilotTokenAuthorization, GithubCopilotTokenAuthorizationRemoteBody } from '../../types'
 import { getCache, setCache } from '../../utils/cache.util'
+import { Debug } from '../../utils/log.util'
 
 const authUrl = 'https://api.github.com/copilot_internal/v2/token'
 
@@ -18,7 +18,7 @@ async function fetchAuth(token: string) {
       Authorization: `token ${token}`,
     },
   })
-  consola.success(`[Copilot] Auth fetch success`)
+  Debug.success(`[Copilot] Auth fetch success`)
   return res
 }
 
@@ -28,7 +28,7 @@ export async function getAuthFromToken(token: string) {
   if (auth) { return auth }
   else {
     const auth = await fetchAuth(token)
-    consola.success(`[Copilot] Get GithubCopilot Authorization Token Success: App_Token: ${token} Token: ${auth.token} Expires: ${auth.expires_at}`)
+    Debug.success(`[Copilot] Get GithubCopilot Authorization Token Success: App_Token: ${token} Token: ${auth.token} Expires: ${auth.expires_at}`)
     return setAuthToCache(token, {
       token: auth.token,
       expires_at: auth.expires_at,
@@ -42,13 +42,13 @@ async function refreshSession(token: string) {
   if (!authInCache)
     return null
   if (authInCache.session_expires_at < new Date().getTime()) {
-    consola.info(`[Copilot] Session Expired. Refreshing GithubCopilot Authorization Token in Cache.`)
+    Debug.info(`[Copilot] Session Expired. Refreshing GithubCopilot Authorization Token in Cache.`)
     authInCache.session_expires_at = new Date().getTime() + 60 * 15
     authInCache.vscode_sessionid = uuid() + new Date().getTime()
     const auth = await fetchAuth(token)
     authInCache.app_token = auth.token
     setCache('copilot', 'auth', cache.map((c: GithubCopilotTokenAuthorization) => c.app_token === token ? authInCache : c))
-    consola.success(`[Copilot] Refresh GithubCopilot Authorization Token in Cache. Token: ${token} Session Expires: ${authInCache.session_expires_at}`)
+    Debug.success(`[Copilot] Refresh GithubCopilot Authorization Token in Cache. Token: ${token} Session Expires: ${authInCache.session_expires_at}`)
   }
 }
 
@@ -66,7 +66,7 @@ export function setAuthToCache(token: string, auth: Authorization) {
     session_expires_at,
   } as GithubCopilotTokenAuthorization
   setCache('copilot', 'auth', [...cache, _new])
-  consola.success(`[Copilot] Set GithubCopilot Authorization Token to Cache. App_Token: ${token} VSCode SessionID: ${vscode_sessionid} MachineID: ${_new.vscode_machineid} Session Expires: ${_new.session_expires_at}`)
+  Debug.success(`[Copilot] Set GithubCopilot Authorization Token to Cache. App_Token: ${token} VSCode SessionID: ${vscode_sessionid} MachineID: ${_new.vscode_machineid} Session Expires: ${_new.session_expires_at}`)
   return auth
 }
 
@@ -104,7 +104,7 @@ export function getAuthorization(request: FastifyRequest) {
 export function generateCopilotRequestHeader(token: string, stream: boolean = true) {
   const auth = getAuthFromCache(token) as GithubCopilotTokenAuthorization
   if (!auth) {
-    consola.warn(`[Copilot] Failed to generate request header. Token: ${token} is not in cache.`)
+    Debug.warn(`[Copilot] Failed to generate request header. Token: ${token} is not in cache.`)
     return null
   }
   const contentType = stream ? 'text/event-stream; charset=utf-8' : 'application/json; charset=utf-8'

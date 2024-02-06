@@ -101,9 +101,6 @@ docker run -d \
   wibuswee/raycast-unblock:latest
 ```
 
-> [!NOTE]
-> The key should be lowercase and use underscores to separate words.
-
 ### Docker Compose
 
 You can use Docker Compose to run Raycast Unblock.

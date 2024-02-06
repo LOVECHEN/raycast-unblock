@@ -3,6 +3,7 @@ import consola from 'consola'
 import dotenv from 'dotenv'
 import { argv } from 'zx'
 import { type AIConfig, KeyOfEnvConfig } from '../types'
+import { Debug } from './log.util'
 
 export function injectEnv() {
   if (argv.help) {
@@ -13,17 +14,23 @@ export function injectEnv() {
     process.exit(0)
   }
   let envPath = '.env'
-  if (argv.env)
+  if (argv.env || argv.ENV)
     envPath = argv.env
-  dotenv.config({
+  const env = dotenv.config({
     path: envPath,
   })
   // Override env from argv
   KeyOfEnvConfig.forEach((key) => {
     const argvKey = key.toLowerCase()
-    if (argv[argvKey])
-      process.env[key] = argv[argvKey]
+    if (argv[argvKey] || argv[key])
+      (process.env[key] as any) = argv[argvKey]
   })
+  Debug.info('Argv:', argv)
+  Debug.info('Env path:', envPath)
+  Debug.info('Parsed env:')
+  if (process.env.DEBUG)
+    // eslint-disable-next-line no-console
+    console.log(env.parsed)
 }
 
 export function getAIConfig(): AIConfig {
@@ -38,7 +45,7 @@ export function getAIConfig(): AIConfig {
 
 export function checkAIConfig() {
   const config = getAIConfig()
-  consola.info('Your AI will be using [', config.type, '] API')
+  Debug.info('Your AI will be using [', config.type, '] API')
   if (!config.key)
     consola.warn('AI_API_KEY is not set')
 }

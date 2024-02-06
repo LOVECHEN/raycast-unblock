@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import { resolve } from 'node:path'
 import os from 'node:os'
-import consola from 'consola'
+import { Debug } from '../../utils/log.util'
 
 export function getSyncFolder() {
   let syncPath = resolve(os.homedir(), 'raycast_sync')
@@ -12,12 +12,12 @@ export function getSyncFolder() {
 }
 
 export function prepareSync() {
-  consola.info('[Sync] Checking sync folder availability...')
+  Debug.info('[Sync] Checking sync folder availability...')
   const syncPath = getSyncFolder()
   if (!fs.existsSync(syncPath)) {
-    consola.info('[Sync] Preparing sync folder...')
+    Debug.info('[Sync] Preparing sync folder...')
     fs.mkdirSync(syncPath)
-    consola.success('[Sync] Sync folder created.')
+    Debug.success('[Sync] Sync folder created.')
   }
-  consola.success(`[Sync] Sync folder is ready.`)
+  Debug.success(`[Sync] Sync folder is ready.`)
 }

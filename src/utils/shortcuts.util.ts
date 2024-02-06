@@ -1,9 +1,9 @@
 import { execSync } from 'node:child_process'
 import fs from 'node:fs'
 import { resolve } from 'node:path'
-import consola from 'consola'
 import { TMP } from '../constants'
 import { execCommand } from './exec.util'
+import { Debug } from './log.util'
 
 export function listShortcuts() {
   const result = execSync('shortcuts list').toString()
@@ -37,11 +37,11 @@ export async function runShortcut<T>(name: string, input?: T): Promise<string> {
 }
 
 export async function prepareShortcutRunner() {
-  consola.info('[Shortcuts] Checking shortcuts tmp folder...')
+  Debug.info('[Shortcuts] Checking shortcuts tmp folder...')
   const tmp = resolve(TMP, 'shortcuts')
   if (!fs.existsSync(tmp)) {
     fs.mkdirSync(tmp)
-    consola.success('[Shortcuts] shortcuts tmp folder created.')
+    Debug.success('[Shortcuts] shortcuts tmp folder created.')
   }
-  consola.success('[Shortcuts] shortcuts tmp prepared.')
+  Debug.success('[Shortcuts] shortcuts tmp prepared.')
 }
