@@ -42,6 +42,7 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
   - [x] Shortcut (only for macOS) `🧪 Alpha` - [Usage](#shortcut-translator)
   - [x] AI - [Notice](#ai-translator)
   - [ ] 3rd Party `🤔 Help Wanted`
+    - [x] DeepLX
 - [x] Cloud Sync
   - [x] iCloud Drive (only for macOS)
   - [x] Local Storage
@@ -284,6 +285,7 @@ You can use AI to translate text in Raycast Translate feature. Prompts provided 
 - [yufeikang/raycast_api_proxy](https://github.com/yufeikang/raycast_api_proxy)
 - [aaamoon/copilot-gpt4-service](https://github.com/aaamoon/copilot-gpt4-service)
 - [google/generative-ai-js](https://github.com/google/generative-ai-js)
+- [OwO-Network/DeepLX](https://github.com/OwO-Network/DeepLX)
 
 ## Author
 
