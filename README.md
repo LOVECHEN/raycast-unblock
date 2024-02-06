@@ -14,7 +14,7 @@ Unblock all features in Raycast Pro Plan.
 ## Quick Start
 
 ```bash
-docker run -d --name raycast-unblock -p 3000:3000 --ai_key=your-open-ai-key --openai_base_url=https://api.openai.com --ai_type=openai --host=0.0.0.0 wibuswee/raycast-unblock:latest
+docker run -d --name raycast-unblock -p 3000:3000 wibuswee/raycast-unblock:latest --ai_key=your-open-ai-key --openai_base_url=https://api.openai.com --ai_type=openai --host=0.0.0.0
 ```
 
 > Replace `your-open-ai-key` with your OpenAI API key.
@@ -76,12 +76,6 @@ See [Unblock Features](#unblock-features) and [Unblock Routes](#unblock-routes) 
 
 You can use Docker to run Raycast Unblock.
 
-#### Pull Image
-
-```bash
-docker pull wibuswee/raycast-unblock:latest
-```
-
 #### Run
 
 ```bash
@@ -109,6 +103,18 @@ docker run -d \
 
 > [!NOTE]
 > The key should be lowercase and use underscores to separate words.
+
+### Docker Compose
+
+You can use Docker Compose to run Raycast Unblock.
+
+Download the [docker-compose.yml](./docker-compose.yml) file and modify the environment variables in it. Then run the following command:
+
+```bash
+docker-compose up -d
+```
+
+If you need to use .env file, please uncomment some lines in the `docker-compose.yml` file (They are commented out by default).
 
 ### Download dist from actions
 

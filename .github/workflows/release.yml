@@ -10,10 +10,7 @@ on:
 
 jobs:
   release:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
+    runs-on: ubuntu-latest
     outputs:
       id: release
       value: ${{ steps.create_release.outputs.release_id }}
